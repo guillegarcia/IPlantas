@@ -10,7 +10,7 @@ import java.util.List;
 public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsStorage {
 
     public MyPlantsStorageSQLite(Context context) {
-        super(context, "myplants", null, 1);
+        super(context, "iplantas", null, 1);
     }
 
     @Override
@@ -47,18 +47,32 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     }
 
     @Override
-    public void updatePlant(Plant plant) {
-
-    }
-
-    @Override
     public void updateLastWatered(Plant plant) {
+        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        String plantPlace = plant.getPlantPlace();
+        String plantName = plant.getPlantName();
+        Date plantLastWatered = plant.getPlantLastWatered();
 
+        db.execSQL("UPDATE myplants SET plantLastWatered = '" + plantLastWatered
+                + "' WHERE plantPlace = '" + plantPlace
+                + "' AND plantName = '" + plantName + "'"
+        );
+        db.close();
     }
 
     @Override
     public void deletePlant(Plant plant) {
+        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        String plantPlace = plant.getPlantPlace();
+        String plantName = plant.getPlantName();
+        Date plantLastWatered = plant.getPlantLastWatered();
+        String plantDataUrl = plant.getPlantDataUrl();
+        Date plantDateOfAddition = plant.getPlantDateOfAddition();
 
+        db.execSQL("DELETE FROM myplants WHERE plantPlace = '" + plantPlace
+                + "' AND plantName = '" + plantName + "'"
+        );
+        db.close();
     }
 
     @Override
