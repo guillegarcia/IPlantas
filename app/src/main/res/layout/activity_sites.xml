@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.iplantas.iplantas.activity.SitiosActivity">
+    tools:context="com.iplantas.iplantas.activity.SitesActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,15 +21,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/content_sitios"
+        android:id="@+id/content_sites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.iplantas.iplantas.activity.SitiosActivity"
-        tools:showIn="@layout/activity_sitios">
+        tools:context="com.iplantas.iplantas.activity.SitesActivity"
+        tools:showIn="@layout/activity_sites">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/reciclador_sitios"
+            android:id="@+id/recycler_sites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
@@ -41,8 +41,8 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@+id/content_sitios"
-        app:layout_anchorGravity="top|end"
+        app:layout_anchor="@+id/content_sites"
+        app:layout_anchorGravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add_white_24dp" />
 

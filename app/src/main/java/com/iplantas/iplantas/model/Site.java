@@ -4,21 +4,21 @@ package com.iplantas.iplantas.model;
  * Created by vicch on 13/11/2017.
  */
 
-public class Sitio {
+public class Site {
 
     private long id;
     private String name;
     private double lat;
     private double lng;
 
-    public Sitio(long id, String name) {
+    public Site(long id, String name) {
         this.id=id;
         this.name=name;
         this.lat=-1;
         this.lng=-1;
     }
 
-    public Sitio(long id, String name, double lat, double lng) {
+    public Site(long id, String name, double lat, double lng) {
         this.id=id;
         this.name=name;
         this.lat=lat;
@@ -56,4 +56,34 @@ public class Sitio {
     public void setLng(double lng) {
         this.lng = lng;
     }
+
+    public static class SiteBuilder{
+
+        private long id;
+        private String name;
+        private double lat;
+        private double lng;
+
+        public SiteBuilder withId(long id){
+            this.id=id;
+            return this;
+        }
+
+        public SiteBuilder withName(String name){
+            this.name=name;
+            return this;
+        }
+
+        public SiteBuilder withLatLng(double lat, double lng){
+            this.lat=lat;
+            this.lng=lng;
+            return this;
+        }
+
+        public Site build(){
+            return new Site(this.id,this.name,this.lat,this.lng);
+        }
+
+    }
+
 }

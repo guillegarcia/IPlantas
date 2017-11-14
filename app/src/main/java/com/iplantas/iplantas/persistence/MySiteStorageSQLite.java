@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.iplantas.iplantas.Params;
-import com.iplantas.iplantas.model.Sitio;
+import com.iplantas.iplantas.model.Site;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by vicch on 13/11/2017.
  */
 
-public class SitiosDB extends SQLiteOpenHelper {
+public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStorage {
 
     public static final String TABLE_NAME="SITIO";
 
@@ -27,7 +27,7 @@ public class SitiosDB extends SQLiteOpenHelper {
             " lat REAL, "+
             " lng REAL )";
 
-    public SitiosDB(Context context) {
+    public MySiteStorageSQLite(Context context) {
         super(context, Params.DATABASE_NAME,null,1);
     }
 
@@ -41,21 +41,21 @@ public class SitiosDB extends SQLiteOpenHelper {
 
     }
 
-    public List<Sitio> obtenerSitios(){
+    public List<Site> getSites(){
         SQLiteDatabase db=this.getReadableDatabase();
         String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" order by name";
         Cursor cursor=db.rawQuery(SQL,null);
-        return this.preprarListado(cursor);
+        return this.prepareList(cursor);
     }
 
-    public List<Sitio> buscarSitios(String text){
+    public List<Site> searchSites(String text){
         SQLiteDatabase db=this.getReadableDatabase();
         String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" WHERE LOWER(name) LIKE ? order by name";
         Cursor cursor=db.rawQuery(SQL,new String[]{"'%"+text+"%'"});
-        return this.preprarListado(cursor);
+        return this.prepareList(cursor);
     }
 
-    public long insertar(String name, double lat, double lng){
+    public long insertSite(String name, double lat, double lng){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put("name",name);
@@ -64,37 +64,37 @@ public class SitiosDB extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME,null,cv);
     }
 
-    public void modificar(long id, String name, double lat, double lng){
+    public int updateSite(long id, String name, double lat, double lng){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put("name",name);
         cv.put("lat",lat);
         cv.put("lng",lng);
-        db.update(TABLE_NAME,cv,"id=?", new String[]{id+""});
+        return db.update(TABLE_NAME,cv,"id=?", new String[]{id+""});
     }
 
-    public void eliminar(int id){
+    public int deleteSite(long id){
         SQLiteDatabase db=this.getWritableDatabase();
-        db.delete(TABLE_NAME,"id=?",new String[]{id+""});
+        return db.delete(TABLE_NAME,"id=?",new String[]{id+""});
     }
 
-    private List<Sitio> preprarListado(Cursor cursor){
-        List<Sitio> sitios=new ArrayList<>();
+    private List<Site> prepareList(Cursor cursor){
+        List<Site> sites=new ArrayList<>();
         cursor.moveToFirst();
         while (cursor.isAfterLast()==false){
-            sitios.add(this.crearSitio(cursor));
+            sites.add(this.createSite(cursor));
             cursor.moveToNext();
         }
         cursor.close();
-        return sitios;
+        return sites;
     }
 
-    private Sitio crearSitio(Cursor cursor){
+    private Site createSite(Cursor cursor){
         long id=cursor.getLong(0);
         String name=cursor.getString(1);
         double lat=cursor.getDouble(2);
         double lng=cursor.getDouble(3);
-        return new Sitio(id,name,lat,lng);
+        return new Site(id,name,lat,lng);
     }
 
 }

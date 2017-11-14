@@ -3,7 +3,6 @@ package com.iplantas.iplantas.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,14 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.iplantas.iplantas.R;
-import com.iplantas.iplantas.adapter.RecyclerAdapterSitio;
-import com.iplantas.iplantas.model.Sitio;
-import com.iplantas.iplantas.persistence.SitiosDB;
+import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
+import com.iplantas.iplantas.model.Site;
+import com.iplantas.iplantas.persistence.MySiteStorage;
+import com.iplantas.iplantas.persistence.MySiteStorageSQLite;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SitiosActivity extends AppCompatActivity {
+public class SitesActivity extends AppCompatActivity {
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
@@ -27,7 +26,7 @@ public class SitiosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sitios);
+        setContentView(R.layout.activity_sites);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,35 +34,24 @@ public class SitiosActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                abrirSitio();
-            }
+                openSite();           }
         });
 
-        /*List<Sitio> sitios=new ArrayList<>();
-        sitios.add(new Sitio(1,"Casa",-1,-1));
-        sitios.add(new Sitio(2,"Trabajo",1,25));
-        sitios.add(new Sitio(3,"Apartamento Playa",125,25));*/
+        MySiteStorage db=new MySiteStorageSQLite(this);
+        List<Site> sites=db.getSites();
 
-        SitiosDB db=new SitiosDB(this);
-        //db.insertar("Casa");
-        //db.insertar("Trabajo");
-        //db.insertar("Apartamento playa");
-
-        List<Sitio> sitios=db.obtenerSitios();
-
-        recycler = (RecyclerView) findViewById(R.id.reciclador_sitios);
+        recycler = (RecyclerView) findViewById(R.id.recycler_sites);
         recycler.setHasFixedSize(true);
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
         // Crear un nuevo adaptador
-        adapter = new RecyclerAdapterSitio(this,sitios);
+        adapter = new RecyclerAdapterSite(this,sites);
         recycler.setAdapter(adapter);
     }
 
-    private void abrirSitio(){
-        Intent intent=new Intent(this,SitiosFormActivity.class);
+    private void openSite(){
+        Intent intent=new Intent(this,SitesFormActivity.class);
         startActivity(intent);
     }
 

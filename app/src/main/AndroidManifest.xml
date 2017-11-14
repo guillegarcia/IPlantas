@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SitiosActivity"
+            android:name=".activity.SitesActivity"
             android:label="@string/title_activity_sitios"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SitiosFormActivity"></activity>
+        <activity android:name=".activity.SitesFormActivity"></activity>
     </application>
 
 </manifest>
