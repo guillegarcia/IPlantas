@@ -55,14 +55,13 @@ public class SitiosDB extends SQLiteOpenHelper {
         return this.preprarListado(cursor);
     }
 
-    public long insertar(String name){
+    public long insertar(String name, double lat, double lng){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
         cv.put("name",name);
-        cv.put("lat",-1);
-        cv.put("lng",-1);
-        long id=db.insert(TABLE_NAME,null,cv);
-        return id;
+        cv.put("lat",lat);
+        cv.put("lng",lng);
+        return db.insert(TABLE_NAME,null,cv);
     }
 
     public void modificar(long id, String name, double lat, double lng){

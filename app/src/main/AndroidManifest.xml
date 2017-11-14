@@ -22,7 +22,8 @@
         <activity
             android:name=".activity.SitiosActivity"
             android:label="@string/title_activity_sitios"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SitiosFormActivity"></activity>
     </application>
 
 </manifest>
