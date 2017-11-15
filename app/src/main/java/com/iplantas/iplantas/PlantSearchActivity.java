@@ -1,18 +1,23 @@
 package com.iplantas.iplantas;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PlantSearchActivity extends AppCompatActivity implements PlantsRecyclerViewFragment.OnListFragmentInteractionListener {
+public class PlantSearchActivity extends AppCompatActivity implements PlantsSearchListFragment.OnListFragmentInteractionListener {
+    private static final String PLANT_NAME = "plant_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plant_search);
+        setContentView(R.layout.plant_search_activity);
+        setFragment();
+    }
 
-        PlantsRecyclerViewFragment fragment = new PlantsRecyclerViewFragment();
+    private void setFragment() {
+        PlantsSearchListFragment fragment = new PlantsSearchListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
@@ -21,7 +26,9 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsRecy
     }
 
     @Override
-    public void onListFragmentInteraction(String item) {
-
+    public void onListFragmentInteraction(String plantName) {
+        Intent intent = new Intent(PlantSearchActivity.this, PlantInfoActivity.class);
+        intent.putExtra(PLANT_NAME, plantName);
+        startActivity(intent);
     }
 }

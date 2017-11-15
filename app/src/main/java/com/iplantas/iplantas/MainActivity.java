@@ -29,14 +29,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView textView = (TextView)findViewById(R.id.erik);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,PlantSearchActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 

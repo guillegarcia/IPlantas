@@ -8,25 +8,20 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.iplantas.iplantas.PlantsRecyclerViewFragment.OnListFragmentInteractionListener;
-import com.iplantas.iplantas.dummy.DummyContent.DummyItem;
+import com.iplantas.iplantas.PlantsSearchListFragment.OnListFragmentInteractionListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class MyPlantRecyclerViewAdapter extends RecyclerView.Adapter<MyPlantRecyclerViewAdapter.ViewHolder> implements Filterable {
+public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchListAdapter.ViewHolder> implements Filterable {
 
     private  List<String> mValues;
     private final OnListFragmentInteractionListener mListener;
     private ValueFilter valueFilter;
     private List mStringFilterList;
 
-    public MyPlantRecyclerViewAdapter(List<String> items, OnListFragmentInteractionListener listener) {
+    public PlantSearchListAdapter(List<String> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mStringFilterList = items;
         mListener = listener;
@@ -35,23 +30,18 @@ public class MyPlantRecyclerViewAdapter extends RecyclerView.Adapter<MyPlantRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_plant, parent, false);
+                .inflate(R.layout.plant_search_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
         holder.plantName.setText(mValues.get(position));
-        //holder.mContentView.setText(mValues.get(position).content);
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.plantName.getText().toString());
                 }
             }
         });
@@ -73,14 +63,11 @@ public class MyPlantRecyclerViewAdapter extends RecyclerView.Adapter<MyPlantRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView plantName;
-        //public final TextView mContentView;
-        public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             plantName = (TextView) view.findViewById(R.id.plant_name);
-           // mContentView = (TextView) view.findViewById(R.id.content);
         }
 
         @Override
@@ -93,7 +80,6 @@ public class MyPlantRecyclerViewAdapter extends RecyclerView.Adapter<MyPlantRecy
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-
             if (constraint != null && constraint.length() > 0) {
                 List filterList = new ArrayList();
                 for (int i = 0; i < mStringFilterList.size(); i++) {
