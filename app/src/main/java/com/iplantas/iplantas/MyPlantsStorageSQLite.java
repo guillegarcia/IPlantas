@@ -1,5 +1,6 @@
 package com.iplantas.iplantas;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,6 +25,51 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
                 "plantDataUrl TEXT, " +
                 "plantDateOfAddition DATE, " +
                 "PRIMARY KEY (plantPlace,plantName))");
+
+        //Available plants
+        //TODO: add fields with more information
+        db.execSQL("CREATE TABLE plants ("+
+                "id INTEGER PRIMARY KEY ASC, " +
+                "plantName TEXT, " +
+                "plantDataUrl TEXT " +
+                ")");
+
+        //INITIAL DATA
+        ContentValues insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Geranio");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Petunia");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Petunia");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Tulipan");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Tulipan");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Rosa");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Rosa");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Begonia");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Begonia");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Camelia");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Camelia");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues = new ContentValues();
+        insertPlantValues.put("plantName","Hortensia");
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Hortensia");
+        db.insert("plants", null, insertPlantValues);
+
     }
 
     @Override
@@ -126,5 +172,31 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
         cursor.close();
         db.close();
         return listMyPlants;
+    }
+
+    @Override
+    public List<Plant> searchPlants(String searchString) {
+        List<Plant> plants = new ArrayList<>();
+
+        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        //TODO: make no casesensitive
+        Cursor cursor = db.rawQuery("SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?", new String[]{"%"+searchString+"%"});
+
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String url = cursor.getString(2);
+
+            Plant plant = new Plant();
+            plant.setId(id);
+            plant.setPlantName(name);
+            plant.setPlantDataUrl(url);
+
+            plants.add(plant);
+        }
+        cursor.close();
+        db.close();
+
+        return plants;
     }
 }
