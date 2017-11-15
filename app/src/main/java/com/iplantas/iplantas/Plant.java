@@ -12,6 +12,9 @@ public class Plant {
     public static final Plant Plant_EMPTY =
             new Plant("","",baseDate,"",baseDate);
 
+    public Plant() {
+    }
+
     public Plant(String plantPlace, String plantName, Date plantLastWatered, String plantDataUrl, Date plantDateOfAddition) {
         this.plantPlace = plantPlace;
         this.plantName = plantName;
