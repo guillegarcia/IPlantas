@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
+import com.iplantas.iplantas.listener.RecyclerItemClickListener;
 import com.iplantas.iplantas.model.Site;
 import com.iplantas.iplantas.persistence.MySiteStorage;
 import com.iplantas.iplantas.persistence.MySiteStorageSQLite;
@@ -34,11 +35,11 @@ public class SitesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSite();           }
+                openSite(0);           }
         });
 
         MySiteStorage db=new MySiteStorageSQLite(this);
-        List<Site> sites=db.getSites();
+        final List<Site> sites=db.getSites();
 
         recycler = (RecyclerView) findViewById(R.id.recycler_sites);
         recycler.setHasFixedSize(true);
@@ -48,10 +49,22 @@ public class SitesActivity extends AppCompatActivity {
         // Crear un nuevo adaptador
         adapter = new RecyclerAdapterSite(this,sites);
         recycler.setAdapter(adapter);
+
+        recycler.addOnItemTouchListener(
+                new RecyclerItemClickListener(SitesActivity.this,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        Site site=sites.get(position);
+                        openSite(site.getId());
+                    }
+                })
+        );
+
     }
 
-    private void openSite(){
+    private void openSite(long id){
         Intent intent=new Intent(this,SitesFormActivity.class);
+        intent.putExtra("id",id);
         startActivity(intent);
     }
 

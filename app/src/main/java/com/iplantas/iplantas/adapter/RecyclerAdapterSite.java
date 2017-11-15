@@ -61,6 +61,7 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
             name = (TextView) v.findViewById(R.id.name);
             location = (TextView) v.findViewById(R.id.location);
         }
+
     }
 
 }

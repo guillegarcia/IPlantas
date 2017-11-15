@@ -48,6 +48,15 @@ public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStora
         return this.prepareList(cursor);
     }
 
+    public Site getSiteById(long id){
+        SQLiteDatabase db=this.getReadableDatabase();
+        String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" WHERE id=?";
+        Cursor cursor=db.rawQuery(SQL,new String[]{id+""});
+        cursor.moveToFirst();
+        return createSite(cursor);
+    }
+
+
     public List<Site> searchSites(String text){
         SQLiteDatabase db=this.getReadableDatabase();
         String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" WHERE LOWER(name) LIKE ? order by name";

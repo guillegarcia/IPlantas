@@ -12,6 +12,8 @@ public interface MySiteStorage {
 
     public List<Site> getSites();
 
+    public Site getSiteById(long id);
+
     public List<Site> searchSites(String text);
 
     public long insertSite(String name, double lat, double lng);

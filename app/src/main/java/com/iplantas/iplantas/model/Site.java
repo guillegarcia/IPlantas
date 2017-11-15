@@ -59,10 +59,14 @@ public class Site {
 
     public static class SiteBuilder{
 
-        private long id;
-        private String name;
-        private double lat;
-        private double lng;
+        private long id=0;
+        private String name="";
+        private double lat=0;
+        private double lng=0;
+
+        public static SiteBuilder site(){
+            return new SiteBuilder();
+        }
 
         public SiteBuilder withId(long id){
             this.id=id;
