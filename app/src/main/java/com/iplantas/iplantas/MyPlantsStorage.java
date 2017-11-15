@@ -9,4 +9,5 @@ public interface MyPlantsStorage {
     public void deletePlant(Plant plant);
     public List<Plant> listOfPlants();
     public List<Plant> listOfPlants(String PlantPlace);
+    public List<Plant> searchPlants(String searchString);
 }

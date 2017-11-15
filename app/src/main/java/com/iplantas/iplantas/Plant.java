@@ -3,6 +3,7 @@ package com.iplantas.iplantas;
 import java.sql.Date;
 
 public class Plant {
+    private int id;
     private String plantPlace = "";
     private String plantName = "";
     private Date plantLastWatered = new Date(0);
@@ -12,12 +13,21 @@ public class Plant {
     public static final Plant Plant_EMPTY =
             new Plant("","",baseDate,"",baseDate);
 
+    public Plant(){}
     public Plant(String plantPlace, String plantName, Date plantLastWatered, String plantDataUrl, Date plantDateOfAddition) {
         this.plantPlace = plantPlace;
         this.plantName = plantName;
         this.plantLastWatered = plantLastWatered;
         this.plantDataUrl = plantDataUrl;
         this.plantDateOfAddition = plantDateOfAddition;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPlantPlace() {
