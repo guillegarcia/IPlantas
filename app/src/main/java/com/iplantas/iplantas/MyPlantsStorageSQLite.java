@@ -19,12 +19,15 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE myplants ("+
-                "plantPlace TEXT, "+
+                "idPlace INTEGER, "+
+                "idPlant INTEGER, "+
+                "idSpecies INTEGER, "+
                 "plantName TEXT, " +
                 "plantLastWatered DATE, " +
                 "plantDataUrl TEXT, " +
+                "plantImageUrl TEXT, " +
                 "plantDateOfAddition DATE, " +
-                "PRIMARY KEY (plantPlace,plantName))");
+                "PRIMARY KEY (plantPlace,idPlant))");
 
         //Available plants
         //TODO: add fields with more information
@@ -79,17 +82,23 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     @Override
     public void addPlant(Plant plant) {
         android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
-        String plantPlace = plant.getPlantPlace();
+        int idPlace = plant.getIdPlace();
+        int idPlant = plant.getIdPlant();
+        int idSpecies = plant.getIdSpecies();
         String plantName = plant.getPlantName();
         Date plantLastWatered = plant.getPlantLastWatered();
         String plantDataUrl = plant.getPlantDataUrl();
+        String plantImageUrl = plant.getPlantImageUrl();
         Date plantDateOfAddition = plant.getPlantDateOfAddition();
 
         db.execSQL("INSERT INTO myplants VALUES ('"
-                + plantPlace + "', '"
+                + idPlace + "', '"
+                + idPlant + "', '"
+                + idSpecies + "', '"
                 + plantName + "', '"
                 + plantLastWatered + "', '"
                 + plantDataUrl + "', '"
+                + plantImageUrl + "', '"
                 + plantDateOfAddition + "')");
         db.close();
     }
@@ -97,13 +106,13 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     @Override
     public void updateLastWatered(Plant plant) {
         android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
-        String plantPlace = plant.getPlantPlace();
-        String plantName = plant.getPlantName();
+        int idPlace = plant.getIdPlace();
+        int idPlant = plant.getIdPlant();
         Date plantLastWatered = plant.getPlantLastWatered();
 
         db.execSQL("UPDATE myplants SET plantLastWatered = '" + plantLastWatered
-                + "' WHERE plantPlace = '" + plantPlace
-                + "' AND plantName = '" + plantName + "'"
+                + "' WHERE idPlace = '" + idPlace
+                + "' AND idPlant = '" + idPlant + "'"
         );
         db.close();
     }
@@ -111,14 +120,11 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     @Override
     public void deletePlant(Plant plant) {
         android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
-        String plantPlace = plant.getPlantPlace();
-        String plantName = plant.getPlantName();
-        Date plantLastWatered = plant.getPlantLastWatered();
-        String plantDataUrl = plant.getPlantDataUrl();
-        Date plantDateOfAddition = plant.getPlantDateOfAddition();
+        int idPlace = plant.getIdPlace();
+        int idPlant = plant.getIdPlant();
 
-        db.execSQL("DELETE FROM myplants WHERE plantPlace = '" + plantPlace
-                + "' AND plantName = '" + plantName + "'"
+        db.execSQL("DELETE FROM myplants WHERE plantPlace = '" + idPlace
+                + "' AND plantName = '" + idPlant + "'"
         );
         db.close();
     }
@@ -127,21 +133,28 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     public List<Plant> listOfPlants() {
         List<Plant> listMyPlants = new ArrayList<Plant>();
         android.database.sqlite.SQLiteDatabase db = getReadableDatabase();
-        String[] CAMPOS = {"plantPlace",
+        String[] CAMPOS = {"idPlace",
+                "idPlant",
+                "idSpecies",
                 "plantName",
                 "plantLastWatered",
                 "plantDataUrl",
+                "plantImageUrl",
                 "plantDateOfAddition"};
+
         Cursor cursor=db.query("myplants", CAMPOS, null, null,
                 null, null, "plantPlace ASC, plantName ASC, plantLastWatered ASC", null);
         while (cursor.moveToNext()){
-            String plantPlace = cursor.getString(0);
-            String plantName = cursor.getString(1);
-            java.sql.Date plantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(2)));
-            String plantDataUrl = cursor.getString(3);
-            java.sql.Date plantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
-
-            Plant plantInList = new Plant(plantPlace, plantName, plantLastWatered, plantDataUrl, plantDateOfAddition);
+            int idPlace = cursor.getInt(0);
+            int idPlant = cursor.getInt(1);
+            int idSpecies = cursor.getInt(2);
+            String plantName = cursor.getString(3);
+            Date plantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
+            String plantDataUrl = cursor.getString(5);
+            String plantImageUrl = cursor.getString(6);
+            Date plantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(7)));
+            Plant plantInList = new Plant(idPlace, idPlant,idSpecies,plantName,
+                    plantLastWatered, plantDataUrl, plantImageUrl,plantDateOfAddition);
             listMyPlants.add(plantInList);
         }
         cursor.close();
@@ -153,20 +166,26 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     public List<Plant> listOfPlants(String plantPlace) {
         List<Plant> listMyPlants = new ArrayList<Plant>();
         android.database.sqlite.SQLiteDatabase db = getReadableDatabase();
-        String[] CAMPOS = {"plantPlace",
+        String[] CAMPOS = {"idPlace",
+                "idPlant",
+                "idSpecies",
                 "plantName",
                 "plantLastWatered",
                 "plantDataUrl",
+                "plantImageUrl",
                 "plantDateOfAddition"};
-        Cursor cursor = db.rawQuery("SELECT * FROM pendingEntertainments" + " WHERE plantPlace = '" + plantPlace + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM myplants" + " WHERE idPlace = '" + plantPlace + "'", null);
         while (cursor.moveToNext()){
-            String myPlantPlace = cursor.getString(0);
-            String myPlantName = cursor.getString(1);
-            java.sql.Date myPlantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(2)));
-            String myPlantDataUrl = cursor.getString(3);
-            java.sql.Date myPlantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
-
-            Plant plantInList = new Plant(myPlantPlace, myPlantName, myPlantLastWatered, myPlantDataUrl, myPlantDateOfAddition);
+            int idPlace = cursor.getInt(0);
+            int idPlant = cursor.getInt(1);
+            int idSpecies = cursor.getInt(2);
+            String plantName = cursor.getString(3);
+            Date plantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
+            String plantDataUrl = cursor.getString(5);
+            String plantImageUrl = cursor.getString(6);
+            Date plantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(7)));
+            Plant plantInList = new Plant(idPlace, idPlant,idSpecies,plantName,
+                    plantLastWatered, plantDataUrl, plantImageUrl,plantDateOfAddition);
             listMyPlants.add(plantInList);
         }
         cursor.close();
@@ -180,7 +199,8 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
 
         android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
         //TODO: make no casesensitive
-        Cursor cursor = db.rawQuery("SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?", new String[]{"%"+searchString+"%"});
+        Cursor cursor = db.rawQuery("SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?",
+                new String[]{"%"+searchString+"%"});
 
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
@@ -188,7 +208,7 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
             String url = cursor.getString(2);
 
             Plant plant = new Plant();
-            plant.setId(id);
+            plant.setIdSpecies(id);
             plant.setPlantName(name);
             plant.setPlantDataUrl(url);
 
