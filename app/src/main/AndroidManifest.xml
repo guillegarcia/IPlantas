@@ -25,6 +25,15 @@
             android:name=".PlantInfoActivity"
             android:label="@string/title_activity_plant_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+            android:name=".activity.SitesActivity"
+            android:label="@string/title_activity_sitios"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SitesFormActivity"
+            android:label="@string/title_activity_sitios"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

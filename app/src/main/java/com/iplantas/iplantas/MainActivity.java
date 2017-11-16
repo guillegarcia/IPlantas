@@ -6,12 +6,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import java.util.List;
+import com.iplantas.iplantas.activity.SitesActivity;
+
 
 public class MainActivity extends AppCompatActivity {
+
+    private final static String LOG_TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        pruebaBusqueda();
+    }
 
+    private void pruebaBusqueda() {
+        MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(this);
+        List<Plant> plantList = myPlantsStorage.searchPlants("");
+        for (Plant plant : plantList) {
+            Log.d(LOG_TAG,"Search result: "+plant.getPlantName());
+        }
     }
 
     @Override
@@ -52,5 +66,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sitios(View view){
+        Intent intent = new Intent(this, SitesActivity.class);
+        startActivity(intent);
     }
 }
