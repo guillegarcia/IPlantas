@@ -1,5 +1,6 @@
 package com.iplantas.iplantas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.util.List;
+import com.iplantas.iplantas.activity.SitesActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,5 +65,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sitios(View view){
+        Intent intent = new Intent(this, SitesActivity.class);
+        startActivity(intent);
     }
 }
