@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/appbar_img_two"/>
+                android:src="@drawable/appbar_search_img"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/detail_toolbar"
@@ -97,8 +97,6 @@
             android:name="com.iplantas.iplantas.PlantsRecyclerViewFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context="com.iplantas.iplantas.PlantsSearchListFragment"
             tools:listitem="@layout/plant_search_item" />

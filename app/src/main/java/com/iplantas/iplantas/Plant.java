@@ -93,6 +93,13 @@ public class Plant {
     public void setPlantDateOfAddition(Date plantDateOfAddition) {
         this.plantDateOfAddition = plantDateOfAddition;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public static class PlantBuilder{
         private int idPlace = 0;

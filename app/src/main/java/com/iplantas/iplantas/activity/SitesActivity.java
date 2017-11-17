@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.iplantas.iplantas.PlantSearchActivity;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
 import com.iplantas.iplantas.listener.RecyclerItemClickListener;
@@ -63,7 +64,7 @@ public class SitesActivity extends AppCompatActivity {
     }
 
     private void openSite(long id){
-        Intent intent=new Intent(this,SitesFormActivity.class);
+        Intent intent=new Intent(this,PlantSearchActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
     }

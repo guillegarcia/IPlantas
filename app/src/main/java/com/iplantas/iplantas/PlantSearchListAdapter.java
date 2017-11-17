@@ -16,12 +16,12 @@ import java.util.List;
 
 public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchListAdapter.ViewHolder> implements Filterable {
 
-    private  List<String> mValues;
+    private  List<Plant> mValues;
     private final OnListFragmentInteractionListener mListener;
     private ValueFilter valueFilter;
-    private List mStringFilterList;
+    private List<Plant> mStringFilterList;
 
-    public PlantSearchListAdapter(List<String> items, OnListFragmentInteractionListener listener) {
+    public PlantSearchListAdapter(List<Plant> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mStringFilterList = items;
         mListener = listener;
@@ -36,7 +36,7 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.plantName.setText(mValues.get(position));
+        holder.plantName.setText(mValues.get(position).getPlantName());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,9 +81,9 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             if (constraint != null && constraint.length() > 0) {
-                List filterList = new ArrayList();
+                List<Plant> filterList = new ArrayList();
                 for (int i = 0; i < mStringFilterList.size(); i++) {
-                    if ((mStringFilterList.get(i).toString().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                    if ((mStringFilterList.get(i).getPlantName().toString().toUpperCase()).contains(constraint.toString().toUpperCase())) {
                         filterList.add(mStringFilterList.get(i));
                     }
                 }
@@ -99,7 +99,7 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
         @Override
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
-            mValues = (List) results.values;
+            mValues = (List<Plant>) results.values;
             notifyDataSetChanged();
         }
     }
