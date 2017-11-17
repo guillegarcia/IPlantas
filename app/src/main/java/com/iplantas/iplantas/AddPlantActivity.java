@@ -1,12 +1,18 @@
 package com.iplantas.iplantas;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -26,6 +32,10 @@ public class AddPlantActivity  extends AppCompatActivity {
     private EditText addPlantNameName;
     private TextView addPlantLabelWater;
     private DatePicker addPlantLastWatered;
+    private Button addPlantAccept;
+    private Button addPlantCancel;
+    private Date pickedDate;
+    private DatePicker.OnDateChangedListener mOnDateChangedListener;
     private static final String PLANT_NAME = "plant_name";
     private static final String initial_date = "01-January-2015";
     @Override
@@ -34,6 +44,7 @@ public class AddPlantActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_add_plant);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onResume() {
         super.onResume();
@@ -46,11 +57,59 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantNameName = (EditText) findViewById(R.id.add_plant_name_name);
         addPlantLabelWater = (TextView) findViewById(R.id.add_plant_label_water);
         addPlantLastWatered = (DatePicker) findViewById(R.id.add_plant_last_watered);
+        addPlantAccept = (Button) findViewById(R.id.add_plant_accept);
+        addPlantCancel = (Button) findViewById(R.id.add_plant_cancel);
+        addPlantAccept.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(AddPlantActivity.this);
+                Plant myPlant = new Plant.PlantBuilder().
+                    withPlantName(String.valueOf(addPlantNameName.getText())).
+                    withPlantLastWatered(new Date(0)).
+                    buildPlant();
+                Toast.makeText(AddPlantActivity.this,myPlant.toString(),Toast.LENGTH_LONG).show();
+                myPlantsStorage.addPlant(myPlant);
+            }
+        });
+        addPlantCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Bundle extras = getIntent().getExtras();
         String species = extras.getString(PLANT_NAME);
         addPlantNameSpecies.setText(species);
         addPlantNameName.setText(species);
         addPlantLastWatered.setMinDate(System.currentTimeMillis());
+/*        mOnDateChangedListener = new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                String strFecha = "2007-12-25";
+                Date fecha = null;
+                try {
+
+                    fecha = (Date) formatoDelTexto.parse(strFecha);
+
+                } catch (ParseException ex) {
+
+                    ex.printStackTrace();
+
+                }
+
+                System.out.println(fecha.toString());
+                Toast.makeText(AddPlantActivity.this,fecha.toString(),Toast.LENGTH_LONG).show();
+            }
+
+            public void setOnDateChangedListener(DatePicker.OnDateChangedListener listener){
+                mOnDateChangedListener = listener;
+            }
+        };
+        addPlantLastWatered.setOnDateChangedListener(mOnDateChangedListener);*/
+    }
+
+    public void setOnDateChangedListener(DatePicker.OnDateChangedListener listener){
+        mOnDateChangedListener = listener;
     }
 
     @Override
@@ -72,5 +131,4 @@ public class AddPlantActivity  extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

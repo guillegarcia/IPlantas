@@ -5,15 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
+import java.lang.ref.PhantomReference;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsStorage {
 
+    private Context context;
+
     public MyPlantsStorageSQLite(Context context) {
         super(context, "iplantas", null, 1);
+        this.context = context;
     }
 
     @Override
@@ -101,6 +106,8 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
                 + plantImageUrl + "', '"
                 + plantDateOfAddition + "')");
         db.close();
+        String text = "Planta " + plantName + " guardada";
+        Toast.makeText(context,text,Toast.LENGTH_LONG).show();
     }
 
     @Override

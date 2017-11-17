@@ -24,8 +24,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:background="@drawable/add_plant_border"
         app:layout_constraintTop_toBottomOf="@+id/add_plant_title"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:elevation="4dp">
         <TextView
             android:id="@+id/add_plant_label_place"
             android:layout_width="wrap_content"
@@ -47,8 +49,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:background="@drawable/add_plant_border"
         app:layout_constraintTop_toBottomOf="@+id/add_plant_place"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:elevation="4dp">
         <TextView
             android:id="@+id/add_plant_label_species"
             android:layout_width="wrap_content"
@@ -70,8 +74,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:background="@drawable/add_plant_border"
         app:layout_constraintTop_toBottomOf="@+id/add_plant_species"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:elevation="4dp">
         <TextView
             android:id="@+id/add_plant_label_name"
             android:layout_width="wrap_content"
@@ -92,8 +98,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/add_plant_border"
         app:layout_constraintTop_toBottomOf="@+id/add_plant_name"
-        android:layout_margin="8dp">
+        android:layout_margin="8dp"
+        android:elevation="4dp">
         <TextView
             android:id="@+id/add_plant_label_water"
             android:layout_width="match_parent"
@@ -118,5 +126,31 @@
             android:id="@+id/add_plant_last_watered"
             app:layout_constraintTop_toBottomOf="@+id/add_plant_label_water">
         </DatePicker>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/add_plant_water"
+        android:layout_margin="8dp"
+        android:elevation="4dp">
+        <Button
+            android:id="@+id/add_plant_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_margin="8dp"
+            android:text="Aceptar"
+            android:onClick="addPlant"/>
+        <Button
+            android:id="@+id/add_plant_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_margin="8dp"
+            android:text="Cancelar"
+            android:onClick="goBack"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
