@@ -81,20 +81,75 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/info_plant_basic_care_title"
+                android:id="@+id/info_plant_soil_title"
                 android:layout_margin="8dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Basic care"
+                android:text="Soil"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/info_plant_basic_care_text"
+                android:id="@+id/info_plant_soil_text"
                 android:layout_margin="8dp"
                 android:textAlignment="center"
-                android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus."
+                android:drawableLeft="@drawable/ic_soil"
+                android:drawablePadding="4dp"
+                android:text="Often"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/info_plant_prune_title"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Prune"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/info_plant_prune_text"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:drawableLeft="@drawable/ic_prune"
+                android:drawablePadding="4dp"
+                android:text="It doesn´t need"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/info_plant_flowering_title"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Flowering"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/info_plant_flowering_text"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:text="Summer"
+                android:drawableLeft="@drawable/ic_flowering"
+                android:drawablePadding="4dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/info_plant_location_title"
+                android:layout_margin="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Location"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+            <ImageView
+                android:id="@+id/plant_location_img"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location_inside"
+                android:layout_margin="8dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

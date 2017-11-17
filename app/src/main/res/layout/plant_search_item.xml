@@ -33,7 +33,7 @@
             android:layout_margin="4dp"
             android:text="Plant Name" />
         <TextView
-            android:id="@+id/plant_location"
+            android:id="@+id/plant_add_to_user_list_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -41,6 +41,6 @@
             android:layout_below="@+id/plant_name"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_margin="4dp"
-            android:text="Indoor/Outdoor" />
+            android:text="+ Add to my list" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

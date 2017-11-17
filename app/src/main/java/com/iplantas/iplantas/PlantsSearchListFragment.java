@@ -40,23 +40,9 @@ public class PlantsSearchListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        adapter = new PlantSearchListAdapter(getPlantsNamesExampleList(), mListener);
-    }
-
-    private List<String> getPlantsNamesExampleList() {
-        plantsNamesArrayList.add("Ficus");
-        plantsNamesArrayList.add("Aspidistra");
-        plantsNamesArrayList.add("Esparraguera");
-        plantsNamesArrayList.add("Difenbaquia");
-        plantsNamesArrayList.add("Tronco de Brasil");
-        plantsNamesArrayList.add("Costilla de Adán");
-        plantsNamesArrayList.add("Kentia");
-        plantsNamesArrayList.add("Drácena");
-        plantsNamesArrayList.add("Clemátide");
-        plantsNamesArrayList.add("Buganvillas");
-        plantsNamesArrayList.add("Madreselva");
-        plantsNamesArrayList.add("Jazmin");
-        return plantsNamesArrayList;
+        MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(getContext());
+        List<Plant> plantList = myPlantsStorage.searchPlants("");
+        adapter = new PlantSearchListAdapter(plantList, mListener);
     }
 
     @Override
