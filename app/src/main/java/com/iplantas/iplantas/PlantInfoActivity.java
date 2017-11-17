@@ -29,7 +29,9 @@ public class PlantInfoActivity extends AppCompatActivity {
         addPlantToUserListText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(PlantInfoActivity.this, AddPlantActivity.class);
+                intent.putExtra(PLANT_NAME, plantName.getText());
+                startActivity(intent);
             }
         });
     }

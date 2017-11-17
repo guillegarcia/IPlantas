@@ -36,6 +36,10 @@
             android:name=".activity.SitesFormActivity"
             android:label="@string/title_activity_sitios"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".AddPlantActivity"
+            android:label="@string/title_activity_add_plant"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

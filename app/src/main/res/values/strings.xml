@@ -4,4 +4,5 @@
     <string name="search_hint">Search...</string>
     <string name="title_activity_plant_info">PlantInfoActivity</string>
     <string name="title_activity_sitios">Sitios</string>
+    <string name="title_activity_add_plant">Añadir planta</string>
 </resources>

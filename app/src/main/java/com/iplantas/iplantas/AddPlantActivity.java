@@ -8,6 +8,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Fernando on 17/11/2017.
  */
@@ -22,7 +26,8 @@ public class AddPlantActivity  extends AppCompatActivity {
     private EditText addPlantNameName;
     private TextView addPlantLabelWater;
     private DatePicker addPlantLastWatered;
-
+    private static final String PLANT_NAME = "plant_name";
+    private static final String initial_date = "01-January-2015";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,11 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantNameName = (EditText) findViewById(R.id.add_plant_name_name);
         addPlantLabelWater = (TextView) findViewById(R.id.add_plant_label_water);
         addPlantLastWatered = (DatePicker) findViewById(R.id.add_plant_last_watered);
+        Bundle extras = getIntent().getExtras();
+        String species = extras.getString(PLANT_NAME);
+        addPlantNameSpecies.setText(species);
+        addPlantNameName.setText(species);
+        addPlantLastWatered.setMinDate(System.currentTimeMillis());
     }
 
     @Override

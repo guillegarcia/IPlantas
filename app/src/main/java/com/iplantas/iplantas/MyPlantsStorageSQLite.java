@@ -20,14 +20,14 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE myplants ("+
                 "idPlace INTEGER, "+
-                "idPlant INTEGER, "+
+                "idPlant INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 "idSpecies INTEGER, "+
                 "plantName TEXT, " +
                 "plantLastWatered DATE, " +
                 "plantDataUrl TEXT, " +
                 "plantImageUrl TEXT, " +
-                "plantDateOfAddition DATE, " +
-                "PRIMARY KEY (plantPlace,idPlant))");
+                "plantDateOfAddition DATE)" );
+                //"PRIMARY KEY (idPlace ASC,idPlant ASC))");
 
         //Available plants
         //TODO: add fields with more information
