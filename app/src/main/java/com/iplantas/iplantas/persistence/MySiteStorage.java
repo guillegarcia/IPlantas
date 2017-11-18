@@ -16,9 +16,9 @@ public interface MySiteStorage {
 
     public List<Site> searchSites(String text);
 
-    public long insertSite(String name, double lat, double lng);
+    public long insertSite(Site site);
 
-    public int updateSite(long id, String name, double lat, double lng);
+    public int updateSite(Site site);
 
     public int deleteSite(long id);
 

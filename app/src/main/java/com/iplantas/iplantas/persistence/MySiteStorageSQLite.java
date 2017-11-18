@@ -24,6 +24,7 @@ public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStora
             " CREATE TABLE IF NOT EXISTS "+TABLE_NAME+
             " ( id INTEGER PRIMARY KEY,"+
             " name TEXT NOT NULL UNIQUE, "+
+            " type INTEGER, "+
             " lat REAL, "+
             " lng REAL )";
 
@@ -43,14 +44,14 @@ public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStora
 
     public List<Site> getSites(){
         SQLiteDatabase db=this.getReadableDatabase();
-        String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" order by name";
+        String SQL="SELECT id, name, type, lat, lng FROM "+TABLE_NAME+" order by name";
         Cursor cursor=db.rawQuery(SQL,null);
         return this.prepareList(cursor);
     }
 
     public Site getSiteById(long id){
         SQLiteDatabase db=this.getReadableDatabase();
-        String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" WHERE id=?";
+        String SQL="SELECT id, name, type, lat, lng FROM "+TABLE_NAME+" WHERE id=?";
         Cursor cursor=db.rawQuery(SQL,new String[]{id+""});
         cursor.moveToFirst();
         return createSite(cursor);
@@ -59,27 +60,29 @@ public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStora
 
     public List<Site> searchSites(String text){
         SQLiteDatabase db=this.getReadableDatabase();
-        String SQL="SELECT id, name, lat, lng FROM "+TABLE_NAME+" WHERE LOWER(name) LIKE ? order by name";
+        String SQL="SELECT id, name, type, lat, lng FROM "+TABLE_NAME+" WHERE LOWER(name) LIKE ? order by name";
         Cursor cursor=db.rawQuery(SQL,new String[]{"'%"+text+"%'"});
         return this.prepareList(cursor);
     }
 
-    public long insertSite(String name, double lat, double lng){
+    public long insertSite(Site site){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
-        cv.put("name",name);
-        cv.put("lat",lat);
-        cv.put("lng",lng);
+        cv.put("name",site.getName());
+        cv.put("type",site.getType());
+        cv.put("lat",site.getLat());
+        cv.put("lng",site.getLng());
         return db.insert(TABLE_NAME,null,cv);
     }
 
-    public int updateSite(long id, String name, double lat, double lng){
+    public int updateSite(Site site){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
-        cv.put("name",name);
-        cv.put("lat",lat);
-        cv.put("lng",lng);
-        return db.update(TABLE_NAME,cv,"id=?", new String[]{id+""});
+        cv.put("name",site.getName());
+        cv.put("type",site.getType());
+        cv.put("lat",site.getLat());
+        cv.put("lng",site.getLng());
+        return db.update(TABLE_NAME,cv,"id=?", new String[]{site.getId()+""});
     }
 
     public int deleteSite(long id){
@@ -101,9 +104,10 @@ public class MySiteStorageSQLite extends SQLiteOpenHelper implements MySiteStora
     private Site createSite(Cursor cursor){
         long id=cursor.getLong(0);
         String name=cursor.getString(1);
-        double lat=cursor.getDouble(2);
-        double lng=cursor.getDouble(3);
-        return new Site(id,name,lat,lng);
+        int type=cursor.getInt(2);
+        double lat=cursor.getDouble(3);
+        double lng=cursor.getDouble(4);
+        return new Site(id,name,type,lat,lng);
     }
 
 }

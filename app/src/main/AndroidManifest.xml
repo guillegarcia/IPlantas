@@ -12,6 +12,10 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PlantSearchActivity"
@@ -26,11 +30,7 @@
             android:name=".activity.SitesActivity"
             android:label="@string/title_activity_sitios"
             android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity
             android:name=".activity.SitesFormActivity"

@@ -18,31 +18,44 @@ import java.util.List;
  * Created by vicch on 13/11/2017.
  */
 
-public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSite.SitioViewHolder> {
+public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSite.SiteViewHolder> {
 
     private List<Site> sites;
     private Context contex;
+    public RecyclerAdapterSiteListener myListener;
 
-    public RecyclerAdapterSite(Context context, List<Site> sites){
+    public RecyclerAdapterSite(Context context, List<Site> sites, RecyclerAdapterSiteListener myListener){
         this.contex=context;
         this.sites=sites;
+        this.myListener=myListener;
     }
 
     @Override
-    public SitioViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()) .inflate(R.layout.element_site, viewGroup, false);
-        return new SitioViewHolder(v);
+    public SiteViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View v = LayoutInflater.from(viewGroup.getContext()) .inflate(R.layout.element_site_card, viewGroup, false);
+        return new SiteViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SitioViewHolder viewHolder, int position) {
-        viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.ic_place_black_24dp));
-        viewHolder.name.setText(sites.get(position).getName());
-        String location="Sin ubicación";
-        if(sites.get(position).getLat()>=0){
-            location="Con ubicación";
+    public void onBindViewHolder(SiteViewHolder viewHolder, int position) {
+        int type=sites.get(position).getType();
+        switch (type){
+            case Site.TYPE_INTO:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_interior));
+                break;
+            }
+            case Site.TYPE_OUTRO:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_exterior));
+                break;
+            }
+            case Site.TYPE_WORK:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_work));
+                break;
+            }
         }
-        viewHolder.location.setText(location);
+
+        viewHolder.name.setText(sites.get(position).getName());
+        viewHolder.num_plants.setText("Numero de plantas: 4");
     }
 
     @Override
@@ -50,17 +63,51 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
         return this.sites.size();
     }
 
-    public static class SitioViewHolder extends RecyclerView.ViewHolder {
+    //Metod to reload data
+    public void swap(List<Site> newSites){
+        if(newSites==null && newSites.size()==0){
+            return;
+        }
+        if(newSites!=null && newSites.size()>0){
+            this.sites.clear();
+        }
+        this.sites.addAll(newSites);
+        notifyDataSetChanged();
+    }
+
+    public class SiteViewHolder extends RecyclerView.ViewHolder{
         // Campos respectivos de un item
         public ImageView image;
         public TextView name;
-        public TextView location;
-        public SitioViewHolder(View v) {
+        public TextView num_plants;
+        public TextView link;
+
+        public SiteViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.image);
-            name = (TextView) v.findViewById(R.id.name);
-            location = (TextView) v.findViewById(R.id.location);
+            image = (ImageView) v.findViewById(R.id.site_image);
+            name = (TextView) v.findViewById(R.id.site_name);
+            num_plants = (TextView) v.findViewById(R.id.site_num_plants);
+            link = (TextView) v.findViewById(R.id.site_edit_link);
+            link.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myListener.editTextViewOnClick(v,getAdapterPosition());
+                }
+            });
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myListener.cardViewOnClick(v,getAdapterPosition());
+                }
+            });
         }
+    }
+
+    public interface RecyclerAdapterSiteListener{
+
+        void editTextViewOnClick(View v, int position);
+
+        void cardViewOnClick(View v, int position);
 
     }
 
