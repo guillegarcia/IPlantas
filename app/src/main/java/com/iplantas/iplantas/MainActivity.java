@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
 import java.util.List;
 import com.iplantas.iplantas.activity.SitesActivity;
+import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pruebaBusqueda() {
-        MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(this);
+        MyStorage myPlantsStorage = new MyStorageSQLite(this);
         List<Plant> plantList = myPlantsStorage.searchPlants("");
         for (Plant plant : plantList) {
             Log.d(LOG_TAG,"Search result: "+plant.getPlantName());

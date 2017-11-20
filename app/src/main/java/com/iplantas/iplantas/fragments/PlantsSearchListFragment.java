@@ -1,4 +1,4 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.adapter.PlantSearchListAdapter;
+import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +46,7 @@ public class PlantsSearchListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-        MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(getContext());
+        MyStorage myPlantsStorage = new MyStorageSQLite(getContext());
         List<Plant> plantList = myPlantsStorage.searchPlants("");
         adapter = new PlantSearchListAdapter(plantList, mListener);
     }

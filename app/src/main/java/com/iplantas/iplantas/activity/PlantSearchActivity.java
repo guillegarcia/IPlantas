@@ -1,10 +1,13 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.activity;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.iplantas.iplantas.fragments.PlantsSearchListFragment;
+import com.iplantas.iplantas.R;
 
 public class PlantSearchActivity extends AppCompatActivity implements PlantsSearchListFragment.OnListFragmentInteractionListener {
     private static final String PLANT_NAME = "plant_name";

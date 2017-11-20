@@ -1,10 +1,9 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.activity;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
+
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * Created by Fernando on 17/11/2017.
@@ -62,7 +64,7 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantAccept.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                MyPlantsStorage myPlantsStorage = new MyPlantsStorageSQLite(AddPlantActivity.this);
+                MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
                 Plant myPlant = new Plant.PlantBuilder().
                     withPlantName(String.valueOf(addPlantNameName.getText())).
                     withPlantLastWatered(new Date(0)).

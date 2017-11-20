@@ -18,11 +18,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PlantSearchActivity"
+            android:name=".activity.PlantSearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".PlantInfoActivity"
+            android:name=".activity.PlantInfoActivity"
             android:label="@string/title_activity_plant_info"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -37,7 +37,7 @@
             android:label="@string/title_activity_sitios"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".AddPlantActivity"
+        <activity android:name=".activity.AddPlantActivity"
             android:label="@string/title_activity_add_plant"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

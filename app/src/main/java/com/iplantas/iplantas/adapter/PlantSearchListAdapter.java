@@ -1,4 +1,4 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +8,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.iplantas.iplantas.PlantsSearchListFragment.OnListFragmentInteractionListener;
+import com.iplantas.iplantas.fragments.PlantsSearchListFragment.OnListFragmentInteractionListener;
+import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.model.Plant;
 
 
 import java.util.ArrayList;

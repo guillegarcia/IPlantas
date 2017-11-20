@@ -1,7 +1,6 @@
 package com.iplantas.iplantas.activity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Site;
-import com.iplantas.iplantas.persistence.MySiteStorage;
-import com.iplantas.iplantas.persistence.MySiteStorageSQLite;
+import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 public class SitesFormActivity extends AppCompatActivity {
 
@@ -87,7 +85,7 @@ public class SitesFormActivity extends AppCompatActivity {
 
     private void load(long id){
         if(id>0) {
-            MySiteStorage db = new MySiteStorageSQLite(this);
+            MyStorage db = new MyStorageSQLite(this);
             this.site = db.getSiteById(id);
         }
         else{
@@ -115,7 +113,7 @@ public class SitesFormActivity extends AppCompatActivity {
         }
         catch (NumberFormatException nfe){}
 
-        MySiteStorageSQLite db=new MySiteStorageSQLite(this);
+        MyStorageSQLite db=new MyStorageSQLite(this);
         long res=0;
         if(this.site.getId()==0){
             res=db.insertSite(site);
@@ -132,7 +130,7 @@ public class SitesFormActivity extends AppCompatActivity {
     }
 
     public void delete(){
-        MySiteStorageSQLite db=new MySiteStorageSQLite(this);
+        MyStorageSQLite db=new MyStorageSQLite(this);
         if(db.deleteSite(this.site.getId())>0){
             finish();
         }

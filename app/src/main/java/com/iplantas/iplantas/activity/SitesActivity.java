@@ -7,17 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.iplantas.iplantas.PlantSearchActivity;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
-import com.iplantas.iplantas.listener.RecyclerItemClickListener;
 import com.iplantas.iplantas.model.Site;
-import com.iplantas.iplantas.persistence.MySiteStorage;
-import com.iplantas.iplantas.persistence.MySiteStorageSQLite;
+import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class SitesActivity extends AppCompatActivity {
                 openSite(0);           }
         });
 
-        MySiteStorage db=new MySiteStorageSQLite(this);
+        MyStorage db=new MyStorageSQLite(this);
         sites=db.getSites();
 
         recycler = (RecyclerView) findViewById(R.id.recycler_sites);
@@ -95,7 +91,7 @@ public class SitesActivity extends AppCompatActivity {
     }
 
     private void loadSites(){
-        MySiteStorage db=new MySiteStorageSQLite(this);
+        MyStorage db=new MyStorageSQLite(this);
         this.sites=db.getSites();
         adapter.swap(this.sites);
     }

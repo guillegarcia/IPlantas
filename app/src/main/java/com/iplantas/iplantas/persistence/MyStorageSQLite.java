@@ -1,4 +1,4 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.persistence;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,42 +7,57 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-import java.lang.ref.PhantomReference;
+import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.model.Site;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsStorage {
+/**
+ * Created by vicch on 20/11/2017.
+ */
+
+public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
+
+    private static final String DB_NAME="iplantas.db";
 
     private Context context;
 
-    public MyPlantsStorageSQLite(Context context) {
-        super(context, "iplantas", null, 1);
+    public MyStorageSQLite(Context context) {
+        super(context, DB_NAME, null, 1);
         this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE myplants ("+
-                "idPlace INTEGER, "+
-                "idPlant INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                "idSpecies INTEGER, "+
+        db.execSQL("CREATE TABLE IF NOT EXISTS SITIO"+
+                " ( id INTEGER PRIMARY KEY,"+
+                " name TEXT NOT NULL UNIQUE, "+
+                " type INTEGER, "+
+                " lat REAL, "+
+                " lng REAL )");
+
+        db.execSQL("CREATE TABLE myplants (" +
+                "idPlace INTEGER, " +
+                "idPlant INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "idSpecies INTEGER, " +
                 "plantName TEXT, " +
                 "plantLastWatered DATE, " +
                 "plantDataUrl TEXT, " +
                 "plantImageUrl TEXT, " +
-                "plantDateOfAddition DATE)" );
-                //"PRIMARY KEY (idPlace ASC,idPlant ASC))");
+                "plantDateOfAddition DATE)");
 
-        //Available plants
-        //TODO: add fields with more information
-        db.execSQL("CREATE TABLE plants ("+
+        db.execSQL("CREATE TABLE plants (" +
                 "id INTEGER PRIMARY KEY ASC, " +
                 "plantName TEXT, " +
-                "plantDataUrl TEXT " +
-                ")");
+                "plantDataUrl TEXT )");
 
-        //INITIAL DATA
+        initializePlants(db);
+
+    }
+
+    private void initializePlants(SQLiteDatabase db){
         ContentValues insertPlantValues = new ContentValues();
         insertPlantValues.put("plantName","Geranio");
         insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
@@ -77,7 +92,6 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
         insertPlantValues.put("plantName","Hortensia");
         insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Hortensia");
         db.insert("plants", null, insertPlantValues);
-
     }
 
     @Override
@@ -85,8 +99,81 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
     }
 
     @Override
+    public List<Site> getSites() {
+        SQLiteDatabase db=this.getReadableDatabase();
+        String SQL="SELECT id, name, type, lat, lng FROM SITIO order by name";
+        Cursor cursor=db.rawQuery(SQL,null);
+        return this.prepareList(cursor);
+    }
+
+    @Override
+    public Site getSiteById(long id) {
+        SQLiteDatabase db=this.getReadableDatabase();
+        String SQL="SELECT id, name, type, lat, lng FROM SITIO WHERE id=?";
+        Cursor cursor=db.rawQuery(SQL,new String[]{id+""});
+        cursor.moveToFirst();
+        return createSite(cursor);
+    }
+
+    @Override
+    public List<Site> searchSites(String text) {
+        SQLiteDatabase db=this.getReadableDatabase();
+        String SQL="SELECT id, name, type, lat, lng FROM SITIO WHERE LOWER(name) LIKE ? order by name";
+        Cursor cursor=db.rawQuery(SQL,new String[]{"'%"+text+"%'"});
+        return this.prepareList(cursor);
+    }
+
+    @Override
+    public long insertSite(Site site) {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put("name",site.getName());
+        cv.put("type",site.getType());
+        cv.put("lat",site.getLat());
+        cv.put("lng",site.getLng());
+        return db.insert("SITIO",null,cv);
+    }
+
+    @Override
+    public int updateSite(Site site) {
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put("name",site.getName());
+        cv.put("type",site.getType());
+        cv.put("lat",site.getLat());
+        cv.put("lng",site.getLng());
+        return db.update("SITIO",cv,"id=?", new String[]{site.getId()+""});
+    }
+
+    @Override
+    public int deleteSite(long id) {
+        SQLiteDatabase db=this.getWritableDatabase();
+        return db.delete("SITIO","id=?",new String[]{id+""});
+    }
+
+    private List<Site> prepareList(Cursor cursor){
+        List<Site> sites=new ArrayList<>();
+        cursor.moveToFirst();
+        while (cursor.isAfterLast()==false){
+            sites.add(this.createSite(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return sites;
+    }
+
+    private Site createSite(Cursor cursor){
+        long id=cursor.getLong(0);
+        String name=cursor.getString(1);
+        int type=cursor.getInt(2);
+        double lat=cursor.getDouble(3);
+        double lng=cursor.getDouble(4);
+        return new Site(id,name,type,lat,lng);
+    }
+
+    @Override
     public void addPlant(Plant plant) {
-        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int idPlace = plant.getIdPlace();
         int idPlant = plant.getIdPlant();
         int idSpecies = plant.getIdSpecies();
@@ -112,7 +199,7 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
 
     @Override
     public void updateLastWatered(Plant plant) {
-        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int idPlace = plant.getIdPlace();
         int idPlant = plant.getIdPlant();
         Date plantLastWatered = plant.getPlantLastWatered();
@@ -126,7 +213,7 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
 
     @Override
     public void deletePlant(Plant plant) {
-        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         int idPlace = plant.getIdPlace();
         int idPlant = plant.getIdPlant();
 
@@ -200,14 +287,14 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
         return listMyPlants;
     }
 
+
     @Override
     public List<Plant> searchPlants(String searchString) {
         List<Plant> plants = new ArrayList<>();
 
-        android.database.sqlite.SQLiteDatabase db = getWritableDatabase();
-        //TODO: make no casesensitive
-        Cursor cursor = db.rawQuery("SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?",
-                new String[]{"%"+searchString+"%"});
+        SQLiteDatabase db = getWritableDatabase();
+        String sql="SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{"%"+searchString+"%"});
 
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
@@ -226,4 +313,5 @@ public class MyPlantsStorageSQLite extends SQLiteOpenHelper implements MyPlantsS
 
         return plants;
     }
+
 }

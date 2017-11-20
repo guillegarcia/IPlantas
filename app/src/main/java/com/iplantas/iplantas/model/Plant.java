@@ -1,4 +1,4 @@
-package com.iplantas.iplantas;
+package com.iplantas.iplantas.model;
 
 import java.sql.Date;
 
