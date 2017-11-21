@@ -105,26 +105,34 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <fragment
+            android:id="@+id/siteLocationMap"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_lng" />
+
         <LinearLayout
             android:id="@+id/til_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="8dp"
+            android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_lng">
+            app:layout_constraintTop_toBottomOf="@+id/siteLocationMap">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tipo:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#999"/>
+                android:textColor="#999" />
 
             <Spinner
                 android:id="@+id/form_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

@@ -13,12 +13,15 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Site;
 import com.iplantas.iplantas.persistence.MyStorage;
 import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
-public class SitesFormActivity extends AppCompatActivity {
+public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int DIALOG_CLOSE_TYPE=1;//if push button Aceptar the activity close
     private static final int DIALOG_DIMISS_TYPE=2;//if push button Aceptar the dialog hide
@@ -51,6 +54,13 @@ public class SitesFormActivity extends AppCompatActivity {
         spinnerType.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, types));
 
         this.load(id);
+
+        setupLocationMap();
+    }
+
+    private void setupLocationMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.siteLocationMap);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -178,5 +188,10 @@ public class SitesFormActivity extends AppCompatActivity {
 
     private void finishActivity(){
         finish();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        //TODO: Funcionalidad de mapa
     }
 }
