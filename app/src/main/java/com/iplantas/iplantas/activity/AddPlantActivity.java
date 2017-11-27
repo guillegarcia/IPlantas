@@ -4,12 +4,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +20,10 @@ import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.persistence.MyStorage;
 import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
-import java.sql.Date;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /**
  * Created by Fernando on 17/11/2017.
@@ -33,13 +38,17 @@ public class AddPlantActivity  extends AppCompatActivity {
     private TextView addPlantLabelName;
     private EditText addPlantNameName;
     private TextView addPlantLabelWater;
-    private DatePicker addPlantLastWatered;
+    private SeekBar addPlantLastWatered;
+    private TextView addPlantLastWateredNumber;
     private Button addPlantAccept;
     private Button addPlantCancel;
     private Date pickedDate;
+    private LocalDate localDate;
+    private DateTimeFormatter dtf;
     private DatePicker.OnDateChangedListener mOnDateChangedListener;
     private static final String PLANT_NAME = "plant_name";
     private static final String initial_date = "01-January-2015";
+    private int positionDays;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +67,18 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantLabelName = (TextView) findViewById(R.id.add_plant_label_name);
         addPlantNameName = (EditText) findViewById(R.id.add_plant_name_name);
         addPlantLabelWater = (TextView) findViewById(R.id.add_plant_label_water);
-        addPlantLastWatered = (DatePicker) findViewById(R.id.add_plant_last_watered);
+        addPlantLastWatered = (SeekBar) findViewById(R.id.add_plant_last_watered);
+        addPlantLastWateredNumber = (TextView) findViewById(R.id.add_plant_label_water_number);
         addPlantAccept = (Button) findViewById(R.id.add_plant_accept);
         addPlantCancel = (Button) findViewById(R.id.add_plant_cancel);
         addPlantAccept.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
-                Plant myPlant = new Plant.PlantBuilder().
-                    withPlantName(String.valueOf(addPlantNameName.getText())).
-                    withPlantLastWatered(new Date(0)).
-                    buildPlant();
+                Plant myPlant = new Plant.PlantBuilder()
+                    .withPlantName(String.valueOf(addPlantNameName.getText()))
+                    .withPlantLastWatered(pickedDate)
+                    .buildPlant();
                 Toast.makeText(AddPlantActivity.this,myPlant.toString(),Toast.LENGTH_LONG).show();
                 myPlantsStorage.addPlant(myPlant);
             }
@@ -82,36 +92,43 @@ public class AddPlantActivity  extends AppCompatActivity {
         String species = extras.getString(PLANT_NAME);
         addPlantNameSpecies.setText(species);
         addPlantNameName.setText(species);
-        addPlantLastWatered.setMinDate(System.currentTimeMillis());
-/*        mOnDateChangedListener = new DatePicker.OnDateChangedListener() {
+        addPlantLastWateredNumber.setText("0");
+
+        pickedDate = new Date(System.currentTimeMillis());
+        //dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        //localDate = LocalDate.now();
+        positionDays = 0;
+
+        addPlantLastWatered.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
             @Override
-            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
-                String strFecha = "2007-12-25";
-                Date fecha = null;
-                try {
-
-                    fecha = (Date) formatoDelTexto.parse(strFecha);
-
-                } catch (ParseException ex) {
-
-                    ex.printStackTrace();
-
-                }
-
-                System.out.println(fecha.toString());
-                Toast.makeText(AddPlantActivity.this,fecha.toString(),Toast.LENGTH_LONG).show();
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                positionDays = progress;
+                String myProgress = String.valueOf(progress);
+                addPlantLastWateredNumber.setText(myProgress);
             }
 
-            public void setOnDateChangedListener(DatePicker.OnDateChangedListener listener){
-                mOnDateChangedListener = listener;
+            @Override
+            public void onStartTrackingTouch(SeekBar arg0)
+            {
             }
-        };
-        addPlantLastWatered.setOnDateChangedListener(mOnDateChangedListener);*/
-    }
 
-    public void setOnDateChangedListener(DatePicker.OnDateChangedListener listener){
-        mOnDateChangedListener = listener;
+            @Override
+            public void onStopTrackingTouch(SeekBar arg0)
+            {
+                //localDate = LocalDate.now();
+                //localDate = localDate.minusDays(positionDays);
+                pickedDate = new Date(System.currentTimeMillis());
+                pickedDate = addSubstractHoursToDate(new Date(System.currentTimeMillis()),positionDays*-1);
+                //String stringForToast = "Mi fecha es - " + localDate.toString() + "-.";
+                String stringForToast2 = "Mi date es - " + pickedDate.toString() + "-.";
+                //Log.d("Probando la fecha: ",stringForToast);
+                Log.d("Probando el Date: ",stringForToast2);
+                //Toast.makeText(AddPlantActivity.this, stringForToast,Toast.LENGTH_LONG).show();
+                Toast.makeText(AddPlantActivity.this, stringForToast2,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -132,5 +149,12 @@ public class AddPlantActivity  extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Date addSubstractHoursToDate(Date date, int days){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date); // Configuramos la fecha que se recibe
+        calendar.add(Calendar.DAY_OF_MONTH, days);  // numero de horas a añadir, o restar en caso de horas<0
+        return calendar.getTime(); // Devuelve el objeto Date con las nuevas horas añadidas
     }
 }

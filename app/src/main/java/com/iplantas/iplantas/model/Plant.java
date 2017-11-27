@@ -1,6 +1,6 @@
 package com.iplantas.iplantas.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Plant {
     private int idPlace = 0;

@@ -5,12 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.Site;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
 
         db.execSQL("CREATE TABLE myplants (" +
                 "idPlace INTEGER, " +
-                "idPlant INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "idPlant INTEGER PRIMARY KEY, " +
                 "idSpecies INTEGER, " +
                 "plantName TEXT, " +
                 "plantLastWatered DATE, " +
@@ -181,20 +182,39 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         Date plantLastWatered = plant.getPlantLastWatered();
         String plantDataUrl = plant.getPlantDataUrl();
         String plantImageUrl = plant.getPlantImageUrl();
-        Date plantDateOfAddition = plant.getPlantDateOfAddition();
+        Date plantDateOfAddition = new Date(System.currentTimeMillis());
 
-        db.execSQL("INSERT INTO myplants VALUES ('"
+        db.execSQL("INSERT INTO myplants (" +
+                        "idPlace, " +
+//                        "idPlant, " +
+                        "idSpecies, " +
+                        "plantName, " +
+                        "plantLastWatered, " +
+                        "plantDataUrl, " +
+                        "plantImageUrl, " +
+                        "plantDateOfAddition)"+
+                "VALUES ('"
                 + idPlace + "', '"
-                + idPlant + "', '"
+//                + idPlant + "', '"
                 + idSpecies + "', '"
                 + plantName + "', '"
                 + plantLastWatered + "', '"
                 + plantDataUrl + "', '"
                 + plantImageUrl + "', '"
                 + plantDateOfAddition + "')");
+        String inserted = "VALUES ('"
+                + idPlace + "', '"
+//                + idPlant + "', '"
+                + idSpecies + "', '"
+                + plantName + "', '"
+                + plantLastWatered + "', '"
+                + plantDataUrl + "', '"
+                + plantImageUrl + "', '"
+                + plantDateOfAddition + "')";
         db.close();
         String text = "Planta " + plantName + " guardada";
-        Toast.makeText(context,text,Toast.LENGTH_LONG).show();
+        Toast.makeText(context,inserted,Toast.LENGTH_LONG).show();
+        Log.i("Planta insertada: ",inserted,null);
     }
 
     @Override
