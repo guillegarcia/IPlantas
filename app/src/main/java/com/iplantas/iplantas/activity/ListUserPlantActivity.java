@@ -1,6 +1,8 @@
 package com.iplantas.iplantas.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,10 +44,17 @@ public class ListUserPlantActivity extends AppCompatActivity {
         idSite = extras.getLong("idSite");
         nameSite = extras.getString("nameSite");
         myStorage = new MyStorageSQLite(getApplicationContext());
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_list_user_plant);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSearchPlant(idSite,nameSite);
+            }
+        });
         if (nameSite.equals("")) {
             listPlant = myStorage.listOfPlants();
         }else{
-            listPlant = myStorage.listOfPlants(nameSite);
+            listPlant = myStorage.listOfPlants(idSite);
         }
         Iterator itrNot = listPlant.iterator();
         recyclerView = (RecyclerView) findViewById(R.id.plants_of_user_recycler_view);
@@ -62,5 +71,12 @@ public class ListUserPlantActivity extends AppCompatActivity {
             }
         });
         adapterListUserPlant.notifyDataSetChanged();
+    }
+
+    private void openSearchPlant(long idSite,String nameSite) {
+        Intent intent = new Intent(this, PlantSearchActivity.class);
+        intent.putExtra("idSite", idSite);
+        intent.putExtra("nameSite", nameSite);
+        startActivity(intent);
     }
 }

@@ -10,8 +10,11 @@ import com.iplantas.iplantas.fragments.PlantsSearchListFragment;
 import com.iplantas.iplantas.R;
 
 public class PlantSearchActivity extends AppCompatActivity implements PlantsSearchListFragment.OnListFragmentInteractionListener {
+    private static final String ID_SITE = "idSite";
+    private static final String NAME_SITE = "nameSite";
     private static final String PLANT_NAME = "plant_name";
-
+    private long idSite;
+    private String nameSite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +29,18 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsSear
                 fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
+        Bundle extras = getIntent().getExtras();
+        idSite = extras.getLong(ID_SITE);
+        nameSite = extras.getString(NAME_SITE);
     }
 
     @Override
     public void onListFragmentInteraction(String plantName) {
         Intent intent = new Intent(PlantSearchActivity.this, PlantInfoActivity.class);
         intent.putExtra(PLANT_NAME, plantName);
+        intent.putExtra(ID_SITE, idSite);
+        intent.putExtra(NAME_SITE, nameSite);
         startActivity(intent);
+        finish();
     }
 }

@@ -3,8 +3,8 @@ package com.iplantas.iplantas.model;
 import java.util.Date;
 
 public class Plant {
-    private int idPlace = 0;
-    private int idPlant = 0 ;
+    private long idPlace = 0;
+    private long idPlant = 0;
     private int idSpecies = 0;
     private String plantName = "";
     private Date plantLastWatered = new Date(0);
@@ -16,7 +16,7 @@ public class Plant {
             new Plant(0,0,0,"",baseDate,"","",baseDate);
 
     public Plant(){}
-    public Plant(int idPlace, int idPlant, int idSpecies, String plantName,
+    public Plant(long idPlace, long idPlant, int idSpecies, String plantName,
                  Date plantLastWatered, String plantDataUrl, String plantImageUrl, Date plantDateOfAddition) {
         this.idPlace = idPlace;
         this.idPlant = idPlant;
@@ -28,20 +28,20 @@ public class Plant {
         this.plantDateOfAddition = plantDateOfAddition;
     }
 
-    public int getIdPlace() {
+    public long getIdPlace() {
         return idPlace;
     }
 
-    public void setIdPlace(int idPlace) {
+    public void setIdPlace(long idPlace) {
         this.idPlace = idPlace;
     }
 
 
-    public int getIdPlant() {
+    public long getIdPlant() {
         return idPlant;
     }
 
-    public void setIdPlant(int idPlant) {
+    public void setIdPlant(long idPlant) {
         this.idPlant = idPlant;
     }
 
@@ -103,8 +103,8 @@ public class Plant {
     }
     */
     public static class PlantBuilder{
-        private int idPlace = 0;
-        private int idPlant = 0 ;
+        private long idPlace = 0;
+        private long idPlant = 0 ;
         private int idSpecies = 0;
         private String plantName = "";
         private Date plantLastWatered = new Date(0);
@@ -112,12 +112,12 @@ public class Plant {
         private String plantImageUrl = "";
         private Date plantDateOfAddition = new Date(0);
 
-        public PlantBuilder withIdPlace(int idPlace){
+        public PlantBuilder withIdPlace(long idPlace){
             this.idPlace = idPlace;
             return this;
         }
 
-        public PlantBuilder withIdPlant(int idPlant){
+        public PlantBuilder withIdPlant(long idPlant){
             this.idPlant = idPlant;
             return this;
         }

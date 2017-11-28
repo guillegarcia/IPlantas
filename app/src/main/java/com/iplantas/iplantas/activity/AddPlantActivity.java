@@ -47,8 +47,12 @@ public class AddPlantActivity  extends AppCompatActivity {
     private DateTimeFormatter dtf;
     private DatePicker.OnDateChangedListener mOnDateChangedListener;
     private static final String PLANT_NAME = "plant_name";
+    private static final String ID_SITE = "idSite";
+    private static final String NAME_SITE = "nameSite";
     private static final String initial_date = "01-January-2015";
     private int positionDays;
+    private long idSite;
+    private String nameSite;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,10 @@ public class AddPlantActivity  extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Bundle extras = getIntent().getExtras();
+        String species = extras.getString(PLANT_NAME);
+        idSite = extras.getLong(ID_SITE);
+        nameSite = extras.getString(NAME_SITE);
         addPlantTitle = (TextView) findViewById(R.id.add_plant_title);
         addPlantLabelPlace = (TextView) findViewById(R.id.add_plant_label_place);
         addPlantNamePlace = (TextView) findViewById(R.id.add_plant_name_place);
@@ -76,11 +84,13 @@ public class AddPlantActivity  extends AppCompatActivity {
                 // Code here executes on main thread after user presses button
                 MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
                 Plant myPlant = new Plant.PlantBuilder()
+                    .withIdPlace(idSite)
                     .withPlantName(String.valueOf(addPlantNameName.getText()))
                     .withPlantLastWatered(pickedDate)
                     .buildPlant();
-                Toast.makeText(AddPlantActivity.this,myPlant.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(AddPlantActivity.this,myPlant.getPlantName(),Toast.LENGTH_LONG).show();
                 myPlantsStorage.addPlant(myPlant);
+                onBackPressed();
             }
         });
         addPlantCancel.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +98,7 @@ public class AddPlantActivity  extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        Bundle extras = getIntent().getExtras();
-        String species = extras.getString(PLANT_NAME);
+        addPlantNamePlace.setText(nameSite);
         addPlantNameSpecies.setText(species);
         addPlantNameName.setText(species);
         addPlantLastWateredNumber.setText("0");

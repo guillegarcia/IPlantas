@@ -175,8 +175,8 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
     @Override
     public void addPlant(Plant plant) {
         SQLiteDatabase db = getWritableDatabase();
-        int idPlace = plant.getIdPlace();
-        int idPlant = plant.getIdPlant();
+        long idPlace = plant.getIdPlace();
+        long idPlant = plant.getIdPlant();
         int idSpecies = plant.getIdSpecies();
         String plantName = plant.getPlantName();
         Date plantLastWatered = plant.getPlantLastWatered();
@@ -212,16 +212,16 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
                 + plantImageUrl + "', '"
                 + plantDateOfAddition + "')";
         db.close();
-        String text = "Planta " + plantName + " guardada";
-        Toast.makeText(context,inserted,Toast.LENGTH_LONG).show();
+        //String text = "Planta " + plantName + " guardada";
+        //Toast.makeText(context,inserted,Toast.LENGTH_LONG).show();
         Log.i("Planta insertada: ",inserted,null);
     }
 
     @Override
     public void updateLastWatered(Plant plant) {
         SQLiteDatabase db = getWritableDatabase();
-        int idPlace = plant.getIdPlace();
-        int idPlant = plant.getIdPlant();
+        long idPlace = plant.getIdPlace();
+        long idPlant = plant.getIdPlant();
         Date plantLastWatered = plant.getPlantLastWatered();
 
         db.execSQL("UPDATE myplants SET plantLastWatered = '" + plantLastWatered
@@ -234,8 +234,8 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
     @Override
     public void deletePlant(Plant plant) {
         SQLiteDatabase db = getWritableDatabase();
-        int idPlace = plant.getIdPlace();
-        int idPlant = plant.getIdPlant();
+        long idPlace = plant.getIdPlace();
+        long idPlant = plant.getIdPlant();
 
         db.execSQL("DELETE FROM myplants WHERE plantPlace = '" + idPlace
                 + "' AND plantName = '" + idPlant + "'"
@@ -259,8 +259,8 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         Cursor cursor=db.query("myplants", CAMPOS, null, null,
                 null, null, "plantPlace ASC, plantName ASC, plantLastWatered ASC", null);
         while (cursor.moveToNext()){
-            int idPlace = cursor.getInt(0);
-            int idPlant = cursor.getInt(1);
+            long idPlace = cursor.getLong(0);
+            long idPlant = cursor.getLong(1);
             int idSpecies = cursor.getInt(2);
             String plantName = cursor.getString(3);
             Date plantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
@@ -269,6 +269,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
             Date plantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(7)));
             Plant plantInList = new Plant(idPlace, idPlant,idSpecies,plantName,
                     plantLastWatered, plantDataUrl, plantImageUrl,plantDateOfAddition);
+            Log.d("Comprobar listado", "listOfPlants: " + plantInList.toString());
             listMyPlants.add(plantInList);
         }
         cursor.close();
@@ -277,7 +278,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
     }
 
     @Override
-    public List<Plant> listOfPlants(String plantPlace) {
+    public List<Plant> listOfPlants(long idPlace) {
         List<Plant> listMyPlants = new ArrayList<Plant>();
         android.database.sqlite.SQLiteDatabase db = getReadableDatabase();
         String[] CAMPOS = {"idPlace",
@@ -288,10 +289,10 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
                 "plantDataUrl",
                 "plantImageUrl",
                 "plantDateOfAddition"};
-        Cursor cursor = db.rawQuery("SELECT * FROM myplants" + " WHERE idPlace = '" + plantPlace + "'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM myplants" + " WHERE idPlace = '" + idPlace + "'", null);
         while (cursor.moveToNext()){
-            int idPlace = cursor.getInt(0);
-            int idPlant = cursor.getInt(1);
+            //long idPlace = cursor.getInt(0);
+            long idPlant = cursor.getLong(1);
             int idSpecies = cursor.getInt(2);
             String plantName = cursor.getString(3);
             Date plantLastWatered = new java.sql.Date(java.util.Date.parse(cursor.getString(4)));
@@ -300,6 +301,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
             Date plantDateOfAddition = new java.sql.Date(java.util.Date.parse(cursor.getString(7)));
             Plant plantInList = new Plant(idPlace, idPlant,idSpecies,plantName,
                     plantLastWatered, plantDataUrl, plantImageUrl,plantDateOfAddition);
+            Log.d("Listado con id", "listOfPlants: " + plantInList.toString());
             listMyPlants.add(plantInList);
         }
         cursor.close();

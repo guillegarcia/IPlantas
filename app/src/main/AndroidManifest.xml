@@ -40,6 +40,9 @@
         <activity android:name=".activity.AddPlantActivity"
             android:label="@string/title_activity_add_plant"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ListUserPlantActivity"
+            android:label="@string/title_activity_list_user_plant"
+            android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

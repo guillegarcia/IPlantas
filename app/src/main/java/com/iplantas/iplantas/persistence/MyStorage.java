@@ -33,7 +33,7 @@ public interface MyStorage {
 
     public List<Plant> listOfPlants();
 
-    public List<Plant> listOfPlants(String plantPlace);
+    public List<Plant> listOfPlants(long idPlace);
 
     public List<Plant> searchPlants(String searchString);
 

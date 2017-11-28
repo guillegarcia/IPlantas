@@ -5,4 +5,5 @@
     <string name="title_activity_plant_info">PlantInfoActivity</string>
     <string name="title_activity_sitios">Sitios</string>
     <string name="title_activity_add_plant">Añadir planta</string>
+    <string name="title_activity_list_user_plant">Lista de Plantas</string>
 </resources>
