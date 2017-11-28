@@ -1,8 +1,12 @@
 package com.iplantas.iplantas.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -35,7 +39,7 @@ public class AddPlantActivity  extends AppCompatActivity {
     private TextView addPlantNamePlace;
     private TextView addPlantLabelSpecies;
     private TextView addPlantNameSpecies;
-    private TextView addPlantLabelName;
+    //private TextView addPlantLabelName;
     private EditText addPlantNameName;
     private TextView addPlantLabelWater;
     private SeekBar addPlantLastWatered;
@@ -72,7 +76,7 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantNamePlace = (TextView) findViewById(R.id.add_plant_name_place);
         addPlantLabelSpecies = (TextView) findViewById(R.id.add_plant_label_species);
         addPlantNameSpecies = (TextView) findViewById(R.id.add_plant_name_species);
-        addPlantLabelName = (TextView) findViewById(R.id.add_plant_label_name);
+        //addPlantLabelName = (TextView) findViewById(R.id.add_plant_label_name);
         addPlantNameName = (EditText) findViewById(R.id.add_plant_name_name);
         addPlantLabelWater = (TextView) findViewById(R.id.add_plant_label_water);
         addPlantLastWatered = (SeekBar) findViewById(R.id.add_plant_last_watered);
@@ -81,21 +85,37 @@ public class AddPlantActivity  extends AppCompatActivity {
         addPlantCancel = (Button) findViewById(R.id.add_plant_cancel);
         addPlantAccept.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
-                Plant myPlant = new Plant.PlantBuilder()
-                    .withIdPlace(idSite)
-                    .withPlantName(String.valueOf(addPlantNameName.getText()))
-                    .withPlantLastWatered(pickedDate)
-                    .buildPlant();
-                Toast.makeText(AddPlantActivity.this,myPlant.getPlantName(),Toast.LENGTH_LONG).show();
-                myPlantsStorage.addPlant(myPlant);
-                onBackPressed();
+                if (!String.valueOf(addPlantNameName.getText()).trim().equals("")){
+                    // Code here executes on main thread after user presses button
+                    MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
+                    Plant myPlant = new Plant.PlantBuilder()
+                            .withIdPlace(idSite)
+                            .withPlantName(String.valueOf(addPlantNameName.getText()))
+                            .withPlantLastWatered(pickedDate)
+                            .buildPlant();
+                    String toastText = "Planta - " +  myPlant.getPlantName() + " - insertada.";
+                    Toast.makeText(AddPlantActivity.this,toastText, Toast.LENGTH_LONG).show();
+                    myPlantsStorage.addPlant(myPlant);
+                    onBackPressed();
+                }else{
+                    new AlertDialog.Builder(AddPlantActivity.this)
+                            .setTitle(getResources().getString(R.string.title_dialog_no_name_plant))
+                            .setMessage(getResources().getString(R.string.content_dialog_no_name_plant))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            }).show();
+                }
             }
         });
         addPlantCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(AddPlantActivity.this, PlantSearchActivity.class);
+                intent.putExtra(ID_SITE, idSite);
+                intent.putExtra(NAME_SITE, nameSite);
+                startActivity(intent);
+                finish();
             }
         });
         addPlantNamePlace.setText(nameSite);
@@ -135,7 +155,7 @@ public class AddPlantActivity  extends AppCompatActivity {
                 //Log.d("Probando la fecha: ",stringForToast);
                 Log.d("Probando el Date: ",stringForToast2);
                 //Toast.makeText(AddPlantActivity.this, stringForToast,Toast.LENGTH_LONG).show();
-                Toast.makeText(AddPlantActivity.this, stringForToast2,Toast.LENGTH_LONG).show();
+                //Toast.makeText(AddPlantActivity.this, stringForToast2,Toast.LENGTH_LONG).show();
             }
         });
     }
