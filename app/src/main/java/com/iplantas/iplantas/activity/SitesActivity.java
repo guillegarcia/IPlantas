@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.adapter.ListUserPlantAdapter;
 import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
 import com.iplantas.iplantas.model.Site;
 import com.iplantas.iplantas.persistence.MyStorage;
@@ -60,7 +61,7 @@ public class SitesActivity extends AppCompatActivity {
             @Override
             public void cardViewOnClick(View v, int position) {
                 Site site=sites.get(position);
-                openPlant(site.getId());
+                openPlant(site);
             }
 
         });
@@ -84,9 +85,16 @@ public class SitesActivity extends AppCompatActivity {
         startActivityForResult(intent,SITE_ACTIVITY);
     }
 
-    private void openPlant(long id){
+    //Cambio este método para que me lleguen los datos a la lista de plantas del usuario
+    /*private void openPlant(long id){
         Intent intent=new Intent(this,PlantSearchActivity.class);
         intent.putExtra("id",id);
+        startActivity(intent);
+    }*/
+    private void openPlant(Site site){
+        Intent intent=new Intent(this,ListUserPlantActivity.class);
+        intent.putExtra("idSite",site.getId());
+        intent.putExtra("nameSite",site.getName());
         startActivity(intent);
     }
 
