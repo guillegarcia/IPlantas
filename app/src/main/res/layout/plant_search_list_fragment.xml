@@ -80,7 +80,6 @@
             </LinearLayout>
 
         </FrameLayout>
-
     </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -88,7 +87,7 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -97,6 +96,14 @@
             android:name="com.iplantas.iplantas.PlantsRecyclerViewFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="1dp"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
+            android:transitionGroup="false"
+            app:spanCount="2"
+            android:background="@color/colorPrimary"
+            tools:ignore="UnusedAttribute"
             app:layoutManager="LinearLayoutManager"
             tools:context="com.iplantas.iplantas.fragments.PlantsSearchListFragment"
             tools:listitem="@layout/plant_search_item" />

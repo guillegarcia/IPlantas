@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.iplantas.iplantas.OffsetDecorationRecyclerView;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.PlantSearchListAdapter;
 import com.iplantas.iplantas.model.Plant;
@@ -63,6 +64,7 @@ public class PlantsSearchListFragment extends Fragment {
 
     private void setupSearchView(View view) {
         final SearchView searchView = view.getRootView().findViewById(R.id.search);
+        searchView.setIconified(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -85,6 +87,9 @@ public class PlantsSearchListFragment extends Fragment {
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        final int spacing = getContext().getResources()
+                .getDimensionPixelSize(R.dimen.spacing_nano);
+        recyclerView.addItemDecoration(new OffsetDecorationRecyclerView(spacing));
         recyclerView.setAdapter(adapter);
     }
 

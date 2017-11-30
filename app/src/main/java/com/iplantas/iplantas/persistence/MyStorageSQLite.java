@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.Site;
 
@@ -52,6 +53,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         db.execSQL("CREATE TABLE plants (" +
                 "id INTEGER PRIMARY KEY ASC, " +
                 "plantName TEXT, " +
+                "plantImage INTEGER, " +
                 "plantDataUrl TEXT )");
 
         initializePlants(db);
@@ -61,38 +63,75 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
     private void initializePlants(SQLiteDatabase db){
         ContentValues insertPlantValues = new ContentValues();
         insertPlantValues.put("plantName","Geranio");
+        insertPlantValues.put("plantImage", R.drawable.img_geranio);
         insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
         db.insert("plants", null, insertPlantValues);
 
-        insertPlantValues = new ContentValues();
-        insertPlantValues.put("plantName","Petunia");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Petunia");
+        insertPlantValues.put("plantName","Lavanda");
+        insertPlantValues.put("plantImage", R.drawable.img_lavanda);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
         db.insert("plants", null, insertPlantValues);
 
-        insertPlantValues = new ContentValues();
-        insertPlantValues.put("plantName","Tulipan");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Tulipan");
-        db.insert("plants", null, insertPlantValues);
-
-        insertPlantValues = new ContentValues();
-        insertPlantValues.put("plantName","Rosa");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Rosa");
-        db.insert("plants", null, insertPlantValues);
-
-        insertPlantValues = new ContentValues();
-        insertPlantValues.put("plantName","Begonia");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Begonia");
-        db.insert("plants", null, insertPlantValues);
-
-        insertPlantValues = new ContentValues();
-        insertPlantValues.put("plantName","Camelia");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Camelia");
-        db.insert("plants", null, insertPlantValues);
-
-        insertPlantValues = new ContentValues();
         insertPlantValues.put("plantName","Hortensia");
-        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Hortensia");
+        insertPlantValues.put("plantImage", R.drawable.img_hortensia);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
         db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Tulipan");
+        insertPlantValues.put("plantImage", R.drawable.img_tulipan);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Hiedra");
+        insertPlantValues.put("plantImage", R.drawable.img_hiedra);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Petunia");
+        insertPlantValues.put("plantImage", R.drawable.img_petunia);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Cintas");
+        insertPlantValues.put("plantImage", R.drawable.img_cintas);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Dracena");
+        insertPlantValues.put("plantImage", R.drawable.img_dracena);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Areca");
+        insertPlantValues.put("plantImage", R.drawable.img_areca);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Azalea");
+        insertPlantValues.put("plantImage", R.drawable.img_azalea);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Potos");
+        insertPlantValues.put("plantImage", R.drawable.img_potos);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Bambu");
+        insertPlantValues.put("plantImage", R.drawable.img_bambu);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Shefflera");
+        insertPlantValues.put("plantImage", R.drawable.img_schefflera);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
+        insertPlantValues.put("plantName","Clavel");
+        insertPlantValues.put("plantImage", R.drawable.img_clavel);
+        insertPlantValues.put("plantDataUrl","https://es.wikipedia.org/wiki/Geranium");
+        db.insert("plants", null, insertPlantValues);
+
     }
 
     @Override
@@ -315,17 +354,19 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         List<Plant> plants = new ArrayList<>();
 
         SQLiteDatabase db = getWritableDatabase();
-        String sql="SELECT id,plantName,plantDataUrl FROM plants WHERE plantName LIKE ?";
+        String sql="SELECT id,plantName,plantImage,plantDataUrl FROM plants WHERE plantName LIKE ?";
         Cursor cursor = db.rawQuery(sql, new String[]{"%"+searchString+"%"});
 
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
-            String url = cursor.getString(2);
+            int image = cursor.getInt(2);
+            String url = cursor.getString(3);
 
             Plant plant = new Plant();
             plant.setIdSpecies(id);
             plant.setPlantName(name);
+            plant.setPlantImage(image);
             plant.setPlantDataUrl(url);
 
             plants.add(plant);

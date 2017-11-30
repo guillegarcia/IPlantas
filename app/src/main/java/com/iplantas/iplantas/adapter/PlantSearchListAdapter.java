@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iplantas.iplantas.fragments.PlantsSearchListFragment.OnListFragmentInteractionListener;
@@ -39,6 +40,7 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.plantName.setText(mValues.get(position).getPlantName());
+        holder.plantImage.setImageResource(mValues.get(position).getPlantImage());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,11 +67,13 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView plantName;
+        public final ImageView plantImage;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             plantName = (TextView) view.findViewById(R.id.plant_name);
+            plantImage = (ImageView)view.findViewById(R.id.plant_image_thumbnail);
         }
 
         @Override

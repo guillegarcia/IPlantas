@@ -1,5 +1,7 @@
 package com.iplantas.iplantas.model;
 
+import com.iplantas.iplantas.R;
+
 import java.util.Date;
 
 public class Plant {
@@ -12,6 +14,7 @@ public class Plant {
     private String plantImageUrl = "";
     private Date plantDateOfAddition = new Date(0);
     private final static Date baseDate = new Date(0);
+    private int plantImage = R.mipmap.ic_launcher;
     public static final Plant Plant_EMPTY =
             new Plant(0,0,0,"",baseDate,"","",baseDate);
 
@@ -93,6 +96,15 @@ public class Plant {
     public void setPlantDateOfAddition(Date plantDateOfAddition) {
         this.plantDateOfAddition = plantDateOfAddition;
     }
+
+    public int getPlantImage() {
+        return plantImage;
+    }
+
+    public void setPlantImage(int plantImage) {
+        this.plantImage = plantImage;
+    }
+
     /*
      public int getId() {
         return id;
@@ -111,6 +123,7 @@ public class Plant {
         private String plantDataUrl = "";
         private String plantImageUrl = "";
         private Date plantDateOfAddition = new Date(0);
+        private int plantImage = R.mipmap.ic_launcher;
 
         public PlantBuilder withIdPlace(long idPlace){
             this.idPlace = idPlace;
