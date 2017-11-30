@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import java.util.List;
 import com.iplantas.iplantas.activity.SitesActivity;
 import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.model.PlantInfo;
 import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStoragePlants;
+import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
 import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         pruebaBusqueda();
+
+        pruebaPlantasInfo();
+
     }
 
     private void pruebaBusqueda() {
@@ -74,5 +80,19 @@ public class MainActivity extends AppCompatActivity {
     public void sitios(View view){
         Intent intent = new Intent(this, SitesActivity.class);
         startActivity(intent);
+    }
+
+    private void pruebaPlantasInfo(){
+        MyStoragePlants msp=new MyStoragePlantsPlain(this);
+        PlantInfo p=msp.getPlantInfoByName("Petunias");
+        Log.e("Nombre",p.getName());
+        Log.e("Tipo",p.getType());
+        Log.e("Riego",p.getRecomendedWatering(20)+"");
+        Log.e("Riego",p.getRecomendedWatering(24)+"");
+        Log.e("Sol",p.getRecomendedSun(20)+"");
+        Log.e("Sol",p.getRecomendedSun(24)+"");
+        Log.e("Soil",p.getRecomendedSoil()+"");
+        Log.e("Prune",p.getRecomendedPrune()+"");
+        Log.e("Flowering",p.getRecomendedFlowering()+"");
     }
 }
