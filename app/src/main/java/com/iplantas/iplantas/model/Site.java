@@ -6,9 +6,10 @@ package com.iplantas.iplantas.model;
 
 public class Site {
 
-    public static final int TYPE_INTO=0;
-    public static final int TYPE_OUTRO=1;
+    public static final int TYPE_MAIN=0;
+    public static final int TYPE_OTHER=1;
     public static final int TYPE_WORK=2;
+    public static final int TYPE_EXAMPLE=3;
 
     private long id;
     private String name;

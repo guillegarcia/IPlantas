@@ -6,16 +6,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@color/background_grey"
+    android:background="#45D0D3D8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.iplantas.iplantas.MainActivity"
     tools:showIn="@layout/activity_main">
-    <ImageView
+
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:elevation="4dp"
-        android:src="@drawable/main_activity_top_image"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/main_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="#F1E6CC"
+            android:textStyle="bold"
+            android:padding="15dp"
+            android:elevation="4dp"
+            android:text="My Plants Manager"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_name"
+            android:adjustViewBounds="true"
+            android:elevation="4dp"
+            android:src="@drawable/main_activity_top_image"/>
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <LinearLayout android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -24,7 +50,8 @@
         android:layout_margin="4dp"
         android:weightSum="2">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             card_view:cardCornerRadius="4dp"

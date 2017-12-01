@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.iplantas.iplantas.activity.SitesFormActivity">
 
+    <!--
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +22,7 @@
             android:elevation="4dp"/>
 
     </android.support.design.widget.AppBarLayout>
-
+    -->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -62,57 +63,6 @@
         </android.support.design.widget.TextInputLayout>
 
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_lat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/actionBarSize"
-            android:transitionGroup="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_name"
-            android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/form_lat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Latitud"
-                android:imeOptions="actionNext"
-                android:inputType="numberDecimal"
-                android:textSize="14dp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_lng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/actionBarSize"
-            android:transitionGroup="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_lat"
-            android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/form_lng"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Longitud"
-                android:imeOptions="actionNext"
-                android:inputType="numberDecimal"
-                android:textSize="14dp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <fragment
-            android:id="@+id/siteLocationMap"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_lng" />
-
         <LinearLayout
             android:id="@+id/til_type"
             android:layout_width="match_parent"
@@ -120,7 +70,7 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/siteLocationMap">
+            app:layout_constraintTop_toBottomOf="@+id/til_name">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,6 +84,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+        </LinearLayout>
+
+        <fragment
+            android:id="@+id/siteLocationMap"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_type" />
+
+        <LinearLayout
+            android:id="@+id/add_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/siteLocationMap"
+            android:layout_margin="8dp"
+            android:elevation="4dp">
+            <Button
+                android:id="@+id/add_plant_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="8dp"
+                android:text="Guardar"
+                style="@style/CustomButton"
+                android:onClick="save"/>
+            <Button
+                android:id="@+id/add_plant_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="8dp"
+                style="@style/CustomButton"
+                android:text="Borrar"
+                android:onClick="confirm"/>
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>

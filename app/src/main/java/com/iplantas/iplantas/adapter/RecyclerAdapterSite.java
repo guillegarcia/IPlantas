@@ -40,22 +40,30 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
     public void onBindViewHolder(SiteViewHolder viewHolder, int position) {
         int type=sites.get(position).getType();
         switch (type){
-            case Site.TYPE_INTO:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_interior));
+            case Site.TYPE_EXAMPLE:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.empty_home));
                 break;
             }
-            case Site.TYPE_OUTRO:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_exterior));
+            case Site.TYPE_MAIN:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.my_home));
+                break;
+            }
+            case Site.TYPE_OTHER:{
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.second_home));
                 break;
             }
             case Site.TYPE_WORK:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_work));
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.work_home));
                 break;
             }
         }
 
         viewHolder.name.setText(sites.get(position).getName());
         viewHolder.num_plants.setText("Numero de plantas: 4");
+        if(sites.get(position).getType()==Site.TYPE_EXAMPLE) {
+            viewHolder.num_plants.setText("Pulsa el boton añadir para añadir tus sitios");
+        }
+
     }
 
     @Override
@@ -65,10 +73,10 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
 
     //Metod to reload data
     public void swap(List<Site> newSites){
-        if(newSites==null && newSites.size()==0){
+        if(newSites==null){
             return;
         }
-        if(newSites!=null && newSites.size()>0){
+        if(newSites!=null){
             this.sites.clear();
         }
         this.sites.addAll(newSites);

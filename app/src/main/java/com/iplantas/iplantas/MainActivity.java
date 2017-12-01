@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import java.util.List;
 
+import com.iplantas.iplantas.activity.ListUserPlantActivity;
 import com.iplantas.iplantas.activity.PlantSearchActivity;
 import com.iplantas.iplantas.activity.SitesActivity;
 import com.iplantas.iplantas.model.Plant;
@@ -41,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PlantSearchActivity.class);
+                //Intent intent = new Intent(MainActivity.this, ListUserPlantActivity.class);
                 intent.putExtra("idSite",0);
                 intent.putExtra("nameSite","");
                 startActivity(intent);
+
+
             }
         });
         cardViewSitios = (CardView)findViewById(R.id.cardview_sitios);

@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,8 +30,8 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
 
     private Site site;
     private EditText editName;
-    private EditText editLat;
-    private EditText editLng;
+    //private EditText editLat;
+    //private EditText editLng;
     private Spinner spinnerType;
 
     @Override
@@ -37,20 +39,22 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sites_form);
 
+        /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         ab.setDisplayHomeAsUpEnabled(true);
+        */
 
         long id = getIntent().getLongExtra("id",0);
 
         editName=(EditText) findViewById(R.id.form_name);
-        editLat=(EditText) findViewById(R.id.form_lat);
-        editLng=(EditText) findViewById(R.id.form_lng);
+        //editLat=(EditText) findViewById(R.id.form_lat);
+        //editLng=(EditText) findViewById(R.id.form_lng);
         spinnerType=(Spinner) findViewById(R.id.form_type);
-        String[] types={"Interior","Exterior","Trabajo"};
+        String[] types={"Vivienda","Otra Vivienda","Trabajo"};
         spinnerType.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, types));
 
         this.load(id);
@@ -63,6 +67,7 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         mapFragment.getMapAsync(this);
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -92,6 +97,7 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
 
         return super.onOptionsItemSelected(item);
     }
+    */
 
     private void load(long id){
         if(id>0) {
@@ -103,22 +109,22 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         }
 
         editName.setText(this.site.getName());
-        editLat.setText(this.site.getLat()+"");
-        editLng.setText(this.site.getLng()+"");
+        //editLat.setText(this.site.getLat()+"");
+        //editLng.setText(this.site.getLng()+"");
         spinnerType.setSelection(this.site.getType());
     }
 
-    public void save(){
+    public void save(View v){
         this.site.setName(editName.getText().toString());
         if(this.site.getName().length()==0){
             alert("Advertencia","Debes indicar un nombre del sitio",DIALOG_DIMISS_TYPE);
             return;
         }
         try{
-            double lat=Double.parseDouble(editLat.getText().toString());
-            double lng=Double.parseDouble(editLng.getText().toString());
-            this.site.setLat(lat);
-            this.site.setLng(lng);
+            //double lat=Double.parseDouble(editLat.getText().toString());
+            //double lng=Double.parseDouble(editLng.getText().toString());
+            this.site.setLat(0);
+            this.site.setLng(0);
             this.site.setType(spinnerType.getSelectedItemPosition());
         }
         catch (NumberFormatException nfe){}
@@ -132,7 +138,10 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
             res=db.updateSite(site);
         }
         if(res>0){
-            alert("Guardado","Sitio guardado correctamente",DIALOG_CLOSE_TYPE);
+            //alert("Guardado","Sitio guardado correctamente",DIALOG_CLOSE_TYPE);
+            String toastText = "Sitio " + this.site.getName() + " guardado.";
+            Toast.makeText(this,toastText, Toast.LENGTH_LONG).show();
+            finishActivity();
         }
         else{
             alert("Error","Error al guardar",DIALOG_DIMISS_TYPE);
@@ -142,7 +151,7 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
     public void delete(){
         MyStorageSQLite db=new MyStorageSQLite(this);
         if(db.deleteSite(this.site.getId())>0){
-            finish();
+            finishActivity();
         }
         else{
             alert("Error","No se ha podido eliminar el sitio",DIALOG_DIMISS_TYPE);
@@ -166,10 +175,10 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         alert.show();
     }
 
-    private void confirm(String title, String message){
+    public void confirm(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title)
-                .setMessage(message);
+        builder.setTitle("Confirmación")
+                .setMessage("¿Seguro que deseas borrar el sitio?");
         builder.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
