@@ -146,8 +146,6 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
 //            this.site.setLat(0);
 //            this.site.setLng(0);
 
-            //TODO: Check lat/long
-
             this.site.setType(spinnerType.getSelectedItemPosition());
         } catch (NumberFormatException nfe) {
         }

@@ -35,7 +35,8 @@
                         android:layout_height="300dp"
                         android:layout_margin="5dp"
                         android:id="@+id/info_plant_img"
-                        tools:src="@drawable/img_plant_trhee" />
+                        tools:src="@drawable/img_plant_trhee"
+                        android:transitionName ="@string/transition_name_plant_img"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

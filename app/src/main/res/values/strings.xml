@@ -12,4 +12,5 @@
     <string name="advertencia">Advertencia</string>
     <string name="faltaNombreSitio">Debes indicar un nombre del sitio</string>
     <string name="localizacion">Localización:</string>
+    <string name="transition_name_plant_img">transition:IMG-PLANT</string>
 </resources>

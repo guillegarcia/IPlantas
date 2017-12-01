@@ -26,6 +26,7 @@ public class PlantInfoActivity extends AppCompatActivity {
         setPlantName();
         setPalntImage();
         setupAddToUserListText();
+
     }
 
     private void setupAddToUserListText() {
