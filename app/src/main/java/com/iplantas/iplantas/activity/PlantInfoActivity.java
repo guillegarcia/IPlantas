@@ -5,15 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iplantas.iplantas.R;
 
 public class PlantInfoActivity extends AppCompatActivity {
     TextView moreInfoText, plantName, addPlantToUserListText;
+    ImageView plantImage;
     private static final String PLANT_NAME = "plant_name";
     private static final String ID_SITE = "idSite";
     private static final String NAME_SITE = "nameSite";
+    private static final String PLANT_IMAGE = "plant_image";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,7 @@ public class PlantInfoActivity extends AppCompatActivity {
 
         setupMoreInfoText();
         setPlantName();
+        setPalntImage();
         setupAddToUserListText();
     }
 
@@ -32,12 +36,18 @@ public class PlantInfoActivity extends AppCompatActivity {
         addPlantToUserListText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PlantInfoActivity.this, AddPlantActivity.class);
-                intent.putExtra(PLANT_NAME, plantName.getText());
-                intent.putExtra(ID_SITE, idSite);
-                intent.putExtra(NAME_SITE, nameSite);
-                startActivity(intent);
-                finish();
+                if (idSite != 0) {
+                    Intent intent = new Intent(PlantInfoActivity.this, AddPlantActivity.class);
+                    intent.putExtra(PLANT_NAME, plantName.getText());
+                    intent.putExtra(ID_SITE, idSite);
+                    intent.putExtra(NAME_SITE, nameSite);
+                    intent.putExtra(PLANT_IMAGE, getIntent().getIntExtra(PLANT_IMAGE,R.mipmap.ic_launcher));
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(PlantInfoActivity.this, SitesActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -45,6 +55,11 @@ public class PlantInfoActivity extends AppCompatActivity {
     private void setPlantName() {
         plantName = (TextView)findViewById(R.id.info_plant_name);
         plantName.setText(getIntent().getStringExtra(PLANT_NAME));
+    }
+
+    private void setPalntImage(){
+        plantImage = (ImageView)findViewById(R.id.info_plant_img);
+        plantImage.setImageResource(getIntent().getIntExtra(PLANT_IMAGE,R.mipmap.ic_launcher));
     }
 
     private void setupMoreInfoText() {

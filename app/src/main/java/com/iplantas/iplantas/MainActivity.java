@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.List;
+
+import com.iplantas.iplantas.activity.PlantSearchActivity;
 import com.iplantas.iplantas.activity.SitesActivity;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.PlantInfo;
@@ -22,6 +25,7 @@ import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 
 public class MainActivity extends AppCompatActivity {
+    CardView cardViewSitios, cardViewSearch;
 
     private final static String LOG_TAG = "MainActivity";
 
@@ -32,12 +36,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        cardViewSearch = (CardView)findViewById(R.id.cardview_search);
+        cardViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PlantSearchActivity.class);
+                intent.putExtra("idSite",0);
+                intent.putExtra("nameSite","");
+                startActivity(intent);
+            }
+        });
+        cardViewSitios = (CardView)findViewById(R.id.cardview_sitios);
+        cardViewSitios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sitios(null);
             }
         });
 

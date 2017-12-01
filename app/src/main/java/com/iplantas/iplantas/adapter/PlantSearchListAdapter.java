@@ -39,13 +39,14 @@ public class PlantSearchListAdapter extends RecyclerView.Adapter<PlantSearchList
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        final int pos = position;
         holder.plantName.setText(mValues.get(position).getPlantName());
         holder.plantImage.setImageResource(mValues.get(position).getPlantImage());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.plantName.getText().toString());
+                    mListener.onListFragmentInteraction(holder.plantName.getText().toString(),mValues.get(pos).getPlantImage() );
                 }
             }
         });
