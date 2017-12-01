@@ -8,4 +8,8 @@
     <string name="title_activity_list_user_plant">Lista de Plantas</string>
     <string name="title_dialog_no_name_plant">Error al insertar la planta</string>
     <string name="content_dialog_no_name_plant">El nombre de la planta debe ser distinto de espacios.</string>
+    <string name="faltaLocalizacion">Debes indicar la posición del sitio en el mapa</string>
+    <string name="advertencia">Advertencia</string>
+    <string name="faltaNombreSitio">Debes indicar un nombre del sitio</string>
+    <string name="localizacion">Localización:</string>
 </resources>

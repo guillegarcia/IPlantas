@@ -11,6 +11,9 @@ public class Site {
     public static final int TYPE_WORK=2;
     public static final int TYPE_EXAMPLE=3;
 
+    public static final int EMPTY_LAT = -1;
+    public static final int EMPTY_LNG = -1;
+
     private long id;
     private String name;
     private int type;
@@ -20,8 +23,8 @@ public class Site {
     public Site(long id, String name) {
         this.id=id;
         this.name=name;
-        this.lat=-1;
-        this.lng=-1;
+        this.lat=EMPTY_LAT;
+        this.lng=EMPTY_LNG;
     }
 
     public Site(long id, String name, int type, double lat, double lng) {
@@ -73,8 +76,8 @@ public class Site {
         private long id=0;
         private String name="";
         private int type=0;
-        private double lat=0;
-        private double lng=0;
+        private double lat=EMPTY_LAT;
+        private double lng=EMPTY_LNG;
 
         public static SiteBuilder site(){
             return new SiteBuilder();
