@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Find your plant"
+                    android:text="@string/find_your_plant"
                     android:layout_marginStart="8dp"
                     android:textStyle="bold"
                     android:id="@+id/find_plant_text"

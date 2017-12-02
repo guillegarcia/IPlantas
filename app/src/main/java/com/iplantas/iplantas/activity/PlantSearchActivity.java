@@ -1,10 +1,14 @@
 package com.iplantas.iplantas.activity;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.iplantas.iplantas.fragments.PlantsSearchListFragment;
 import com.iplantas.iplantas.R;
@@ -36,13 +40,18 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsSear
     }
 
     @Override
-    public void onListFragmentInteraction(String plantName, int plantImage) {
+    public void onListFragmentInteraction(String plantName, int plantImage, View viewForAnimation) {
         Intent intent = new Intent(PlantSearchActivity.this, PlantInfoActivity.class);
         intent.putExtra(PLANT_NAME, plantName);
         intent.putExtra(ID_SITE, idSite);
         intent.putExtra(NAME_SITE, nameSite);
         intent.putExtra(PLANT_IMAGE, plantImage);
-        startActivity(intent);
-        finish();
+
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(PlantSearchActivity.this, new Pair<View, String>(viewForAnimation, getString(R.string.transition_name_plant_img)));
+        ActivityCompat.startActivity(PlantSearchActivity.this, intent, options.toBundle());
+
+        //startActivity(intent);
+        //finish();
     }
 }

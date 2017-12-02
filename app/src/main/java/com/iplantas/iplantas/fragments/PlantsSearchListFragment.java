@@ -50,6 +50,8 @@ public class PlantsSearchListFragment extends Fragment {
         MyStorage myPlantsStorage = new MyStorageSQLite(getContext());
         List<Plant> plantList = myPlantsStorage.searchPlants("");
         adapter = new PlantSearchListAdapter(plantList, mListener);
+
+
     }
 
     @Override
@@ -112,6 +114,6 @@ public class PlantsSearchListFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(String item, int plantImage);
+        void onListFragmentInteraction(String item, int plantImage, View viewForAnimation);
     }
 }
