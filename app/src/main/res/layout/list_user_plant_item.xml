@@ -37,7 +37,7 @@
             android:layout_toEndOf="@+id/list_plant_image"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="4dp"
-            android:text="Plant Name" />
+            android:text="@string/plant_name" />
         <TextView
             android:id="@+id/list_plant_text"
             android:layout_width="match_parent"
@@ -47,6 +47,6 @@
             android:layout_below="@+id/list_plant_name"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_margin="4dp"
-            android:text="Información adicional de la planta" />
+            android:text="@string/informacion_adicional_de_la_planta" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

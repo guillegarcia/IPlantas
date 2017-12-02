@@ -159,11 +159,11 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         }
         if (res > 0) {
             //alert("Guardado","Sitio guardado correctamente",DIALOG_CLOSE_TYPE);
-            String toastText = "Sitio " + this.site.getName() + " guardado.";
+            String toastText = getString(R.string.sitio) + this.site.getName() + " " + getString(R.string.guardado);
             Toast.makeText(this, toastText, Toast.LENGTH_LONG).show();
             finishActivity();
         } else {
-            alert("Error", "Error al guardar", DIALOG_DIMISS_TYPE);
+            alert(getString(R.string.error), getString(R.string.error_guardar), DIALOG_DIMISS_TYPE);
         }
     }
 
@@ -172,7 +172,7 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         if (db.deleteSite(this.site.getId()) > 0) {
             finishActivity();
         } else {
-            alert("Error", "No se ha podido eliminar el sitio", DIALOG_DIMISS_TYPE);
+            alert(getString(R.string.error), getString(R.string.no_posible_eliminar_sitio), DIALOG_DIMISS_TYPE);
         }
     }
 
@@ -180,7 +180,7 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title)
                 .setMessage(message);
-        builder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton(R.string.aceptar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -195,15 +195,15 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
 
     public void confirm(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmación")
-                .setMessage("¿Seguro que deseas borrar el sitio?");
-        builder.setPositiveButton("Borrar", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.confirmacion)
+                .setMessage(R.string.confirmacionBorrarSitio);
+        builder.setPositiveButton(R.string.borrar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 delete();
             }
         });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

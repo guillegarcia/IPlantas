@@ -9,7 +9,6 @@
     tools:context="com.iplantas.iplantas.activity.PlantInfoActivity"
     tools:showIn="@layout/plant_info_activity">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,7 +28,6 @@
                 <LinearLayout android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent">
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
@@ -48,7 +46,6 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         tools:text="Margaritas"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -58,7 +55,7 @@
                         android:layout_marginEnd="6dp"
                         android:layout_marginBottom="6dp"
                         style="@style/CustomButton"
-                        android:text="+ Add to list"
+                        android:text="@string/add_to_list"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
 
@@ -69,7 +66,6 @@
                 android:orientation="horizontal">
 
                 <TableRow android:weightSum="2">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,7 +76,7 @@
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:textStyle="bold"
-                        android:text="Watering"
+                        android:text="@string/watering"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -89,17 +85,15 @@
                         android:id="@+id/info_plant_sun_title"
                         android:layout_margin="8dp"
                         android:textAlignment="center"
-                        android:text="Sun"
+                        android:text="@string/sun"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
-
                 </TableRow>
 
                 <TableRow android:weightSum="2">
-
                     <ImageView
                         android:id="@+id/plant_water"
                         android:layout_width="100dp"
@@ -107,7 +101,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_drops_three"
                         android:layout_margin="8dp" />
-
 
                     <ImageView
                         android:id="@+id/plant_light"
@@ -118,9 +111,7 @@
                         android:src="@drawable/ic_sun_one" />
                 </TableRow>
 
-
                 <TableRow android:weightSum="2">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -131,7 +122,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:text="Soil"
+                        android:text="@string/soil"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -144,7 +135,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:text="Prune"
+                        android:text="@string/prune"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
 
@@ -159,7 +150,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:text="Often"
+                        android:text="@string/often"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -172,7 +163,7 @@
                         android:layout_weight="1"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:text="It doesn´t need"
+                        android:text="@string/it_doesnt_need"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
 
@@ -188,7 +179,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:text="Flowering"
+                        android:text="@string/flowering"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
@@ -201,7 +192,7 @@
                         android:gravity="center"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
 
@@ -215,7 +206,7 @@
                         android:layout_margin="8dp"
                         android:textAlignment="center"
                         android:layout_weight="1"
-                        android:text="Summer"
+                        android:text="@string/summer"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -227,7 +218,7 @@
                         android:textAlignment="center"
                         android:layout_weight="1"
                         android:textStyle="bold"
-                        android:text="Outside"
+                        android:text="@string/outside"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
 
@@ -239,7 +230,7 @@
                 android:id="@+id/info_plant_more_info_text"
                 android:textStyle="bold"
                 android:layout_margin="4dp"
-                android:text="More info here!"
+                android:text="@string/more_info_here"
                 style="@style/CustomButton"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>

@@ -31,7 +31,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="You do not have plants yet"
+            android:text="@string/you_do_not_have_plants_yet"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:visibility="gone"/>
         <Button
@@ -49,7 +49,7 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:clickable="true"
-            android:text="+ Add Plant"
+            android:text="@string/add_plant"
             style="@style/CustomButton"
             android:visibility="gone"/>
 
