@@ -59,9 +59,9 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
         }
 
         viewHolder.name.setText(sites.get(position).getName());
-        viewHolder.num_plants.setText("Numero de plantas: 4");
+        viewHolder.num_plants.setText(this.contex.getResources().getString(R.string.site_subtitle));
         if(sites.get(position).getType()==Site.TYPE_EXAMPLE) {
-            viewHolder.num_plants.setText("Pulsa el boton añadir para añadir tus sitios");
+            viewHolder.num_plants.setText(this.contex.getResources().getString(R.string.add_site));
         }
 
     }

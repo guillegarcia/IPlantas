@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Plants Manager</string>
+    <string name="search_hint">Buscar...</string>
+    <string name="title_activity_plant_info">PlantInfoActivity</string>
+    <string name="title_activity_sitios">Sitios</string>
+    <string name="title_activity_add_plant">Añadir planta</string>
+    <string name="title_activity_list_user_plant">Lista de Plantas</string>
+    <string name="title_dialog_no_name_plant">Error al insertar la planta</string>
+    <string name="content_dialog_no_name_plant">El nombre de la planta debe ser distinto de espacios.</string>
+    <string name="faltaLocalizacion">Debes indicar la posición del sitio en el mapa</string>
+    <string name="advertencia">Advertencia</string>
+    <string name="faltaNombreSitio">Debes indicar un nombre del sitio</string>
+    <string name="localizacion">Localización:</string>
+    <string name="edit_site">Editar</string>
+    <string name="site_name">Sitio</string>
+    <string name="edit_site_name">Nombre del sitio</string>
+    <string name="site_type">Tipo:</string>
+    <string name="site_save">Guardar</string>
+    <string name="site_delete">Borrar</string>
+    <string name="my_places">Mis sitios</string>
+    <string name="site_subtitle">Numero de plantas</string>
+    <string name="add_site">Pulsa el boton añadir para añadir tus sitios</string>
+    <string name="search_plant">Buscar planta</string>
+</resources>

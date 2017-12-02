@@ -85,7 +85,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="My Places"
+                    android:text="@string/my_places"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 
@@ -126,7 +126,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
-                    android:text="Search Plant"
+                    android:text="@string/search_plant"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 

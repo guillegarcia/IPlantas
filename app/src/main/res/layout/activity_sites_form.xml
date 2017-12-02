@@ -35,7 +35,7 @@
             android:id="@+id/title_site"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sitio"
+            android:text="@string/site_name"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16dp"
             android:textSize="18dp"
@@ -55,7 +55,7 @@
                 android:id="@+id/form_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre del sitio"
+                android:hint="@string/edit_site_name"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:textSize="14dp" />
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo:"
+                android:text="@string/site_type"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#999" />
 
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="8dp"
-                android:text="Guardar"
+                android:text="@string/site_save"
                 style="@style/CustomButton"
                 android:onClick="save"/>
             <Button
@@ -129,7 +129,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="8dp"
                 style="@style/CustomButton"
-                android:text="Borrar"
+                android:text="@string/site_delete"
                 android:onClick="confirm"/>
         </LinearLayout>
 
