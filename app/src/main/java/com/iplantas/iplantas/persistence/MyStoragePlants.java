@@ -12,6 +12,8 @@ public interface MyStoragePlants {
 
     public List<PlantInfo> getPlantsInfo();
 
+    public PlantInfo getPlantInfoById(int id);
+
     public PlantInfo getPlantInfoByName(String name);
 
     public PlantInfo getPlantInfoByType(String type);

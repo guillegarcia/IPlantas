@@ -1,15 +1,15 @@
-Type;Name;Family;Watering<22;Watering>22;Sun<22;Sun>22;Soil1;Soil2;Soil3;Soil4;SoilType;Prune1;Prune2;Prune3;Prune4;Flowering1;Flowering2;Flowering3;Flowering4;OptimalMin;OptimalMax;Location;URL
-Exterior;Geranio;Geraniaceae;7;2;5;5;15;15;30;30;LIQUID SOIL;SI;NO;SI;NO;SI;SI;SI;SI;15;25;DIRECT;https://es.wikipedia.org/wiki/Geranium
-Exterior;Lavanda;Lamiaceae;15;7;5;5;0;0;0;0;;SI;NO;SI;NO;NO;SI;NO;NO;11;30;DIRECT;https://es.wikipedia.org/wiki/Lavandula
-Exterior;Hortensias;Hydrangeaceae;7;1;1;4;15;15;0;0;LIQUID SOIL;SI;NO;NO;NO;SI;SI;SI;SI;10;18;NO DIRECT;https://es.wikipedia.org/wiki/Hydrangea
-Exterior;Tulip·n;Liliaceae;15;7;4;3;30;30;30;30;;NO;SI;NO;NO;SI;NO;NO;NO;13;18;;https://es.wikipedia.org/wiki/Tulipa
-Exterior;Hiedras;Araliaceae;7;3;2;2;30;30;30;30;;NO;SI;NO;NO;SI;NO;NO;NO;15;21;;https://es.wikipedia.org/wiki/Hedera
-Exterior;Petunias;Solanaceae;4;1;5;4;15;0;0;0;;NO;SI;NO;NO;SI;SI;SI;NO;21;29;DIRECT;https://es.wikipedia.org/wiki/Petunia
-Exterior;Clavel;Caryophyllaceae;7;2;5;2;7;7;30;30;LIQUID SOIL;NO;NO;NO;NO;SI;SI;SI;NO;10;24;DIRECT;https://es.wikipedia.org/wiki/Dianthus_caryophyllus
-Interior;Dr·cena;Ruscaceae;8;8;0;0;7;7;0;0;LIQUID SOIL;NO;NO;NO;NO;NO;SI;NO;NO;15;26;;https://es.wikipedia.org/wiki/Dracaena
-Interior;Areca;Arecaceae;5;5;0;0;20;20;0;0;LIQUID SOIL;NO;NO;NO;NO;NO;NO;NO;NO;18;25;NO DIRECT;https://es.wikipedia.org/wiki/Areca
-Interior;Cintas;Agavaceae;4;4;0;0;15;15;0;0;LIQUID SOIL;NO;NO;NO;NO;SI;NO;NO;NO;14;26;;https://es.wikipedia.org/wiki/Chlorophytum_comosum
-Interior;Azalea;Ericaceae;3;3;0;0;15;15;15;0;LIQUID SOIL;SI;NO;NO;NO;NO;NO;NO;SI;8;16;NO DIRECT;https://es.wikipedia.org/wiki/Azalea
-Interior;Potos;Araceae;3;3;0;0;30;30;30;30;LIQUID SOIL;NO;NO;NO;NO;NO;NO;NO;NO;13;27;NO DIRECT;https://es.wikipedia.org/wiki/Epipremnum_aureum
-Interior;Bamb˙ (Chusquea);Poaceae;3;3;0;0;30;30;0;0;LIQUID SOIL;NO;NO;NO;SI;NO;NO;NO;NO;18;32;NO DIRECT;https://es.wikipedia.org/wiki/Chusquea
-Interior;Shefflera;Araliaceae;3;3;0;0;25;25;0;0;;NO;NO;NO;NO;NO;NO;NO;NO;13;25;NO DIRECT;https://es.wikipedia.org/wiki/Schefflera_arboricola
+ID;Type;Name;Family;Watering<22;Watering>22;Sun<22;Sun>22;Soil1;Soil2;Soil3;Soil4;SoilType;Prune1;Prune2;Prune3;Prune4;Flowering1;Flowering2;Flowering3;Flowering4;OptimalMin;OptimalMax;Location;URL,Image
+1;Exterior;Geranio;Geraniaceae;7;2;5;5;15;15;30;30;LIQUID SOIL;SI;NO;SI;NO;SI;SI;SI;SI;15;25;DIRECT;https://es.wikipedia.org/wiki/Geranium;img_geranio
+2;Exterior;Lavanda;Lamiaceae;15;7;5;5;0;0;0;0;;SI;NO;SI;NO;NO;SI;NO;NO;11;30;DIRECT;https://es.wikipedia.org/wiki/Lavandula;img_lavanda
+3;Exterior;Hortensias;Hydrangeaceae;7;1;1;4;15;15;0;0;LIQUID SOIL;SI;NO;NO;NO;SI;SI;SI;SI;10;18;NO DIRECT;https://es.wikipedia.org/wiki/Hydrangea;img_hortensia
+4;Exterior;Tulip√°n;Liliaceae;15;7;4;3;30;30;30;30;;NO;SI;NO;NO;SI;NO;NO;NO;13;18;;https://es.wikipedia.org/wiki/Tulipa;img_tulipan
+5;Exterior;Hiedras;Araliaceae;7;3;2;2;30;30;30;30;;NO;SI;NO;NO;SI;NO;NO;NO;15;21;;https://es.wikipedia.org/wiki/Hedera;img_hiedra
+6;Exterior;Petunias;Solanaceae;4;1;5;4;15;0;0;0;;NO;SI;NO;NO;SI;SI;SI;NO;21;29;DIRECT;https://es.wikipedia.org/wiki/Petunia;img_petunia
+7;Exterior;Clavel;Caryophyllaceae;7;2;5;2;7;7;30;30;LIQUID SOIL;NO;NO;NO;NO;SI;SI;SI;NO;10;24;DIRECT;https://es.wikipedia.org/wiki/Dianthus_caryophyllus;img_clavel
+8;Interior;Dr√°cena;Ruscaceae;8;8;0;0;7;7;0;0;LIQUID SOIL;NO;NO;NO;NO;NO;SI;NO;NO;15;26;;https://es.wikipedia.org/wiki/Dracaena;img_dracena
+9;Interior;Areca;Arecaceae;5;5;0;0;20;20;0;0;LIQUID SOIL;NO;NO;NO;NO;NO;NO;NO;NO;18;25;NO DIRECT;https://es.wikipedia.org/wiki/Areca;img_areca
+10;Interior;Cintas;Agavaceae;4;4;0;0;15;15;0;0;LIQUID SOIL;NO;NO;NO;NO;SI;NO;NO;NO;14;26;;https://es.wikipedia.org/wiki/Chlorophytum_comosum;img_cintas
+11;Interior;Azalea;Ericaceae;3;3;0;0;15;15;15;0;LIQUID SOIL;SI;NO;NO;NO;NO;NO;NO;SI;8;16;NO DIRECT;https://es.wikipedia.org/wiki/Azalea;img_azalea
+12;Interior;Potos;Araceae;3;3;0;0;30;30;30;30;LIQUID SOIL;NO;NO;NO;NO;NO;NO;NO;NO;13;27;NO DIRECT;https://es.wikipedia.org/wiki/Epipremnum_aureum;img_potos
+13;Interior;Bamb√∫ (Chusquea);Poaceae;3;3;0;0;30;30;0;0;LIQUID SOIL;NO;NO;NO;SI;NO;NO;NO;NO;18;32;NO DIRECT;https://es.wikipedia.org/wiki/Chusquea;img_bambu
+14;Interior;Shefflera;Araliaceae;3;3;0;0;25;25;0;0;;NO;NO;NO;NO;NO;NO;NO;NO;13;25;NO DIRECT;https://es.wikipedia.org/wiki/Schefflera_arboricola;img_schefflera

@@ -35,9 +35,18 @@ public class MyStoragePlantsPlain implements MyStoragePlants{
         return this.list;
     }
 
+    public PlantInfo getPlantInfoById(int id){
+        for(PlantInfo pf : this.list){
+            if(pf.getId()==id){
+                return pf;
+            }
+        }
+        return null;
+    }
+
     public PlantInfo getPlantInfoByName(String name){
         for (PlantInfo pf : this.list){
-            if(pf.getName().equals(name)){
+            if(pf.getName().toLowerCase().equals(name.toLowerCase())){
                 return pf;
             }
         }
@@ -46,7 +55,7 @@ public class MyStoragePlantsPlain implements MyStoragePlants{
 
     public PlantInfo getPlantInfoByType(String type){
         for (PlantInfo pf : this.list){
-            if(pf.getType().equals(type)){
+            if(pf.getType().toLowerCase().equals(type.toLowerCase())){
                 return pf;
             }
         }

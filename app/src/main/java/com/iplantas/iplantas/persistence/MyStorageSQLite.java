@@ -48,18 +48,28 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
                 "plantLastWatered DATE, " +
                 "plantDataUrl TEXT, " +
                 "plantImageUrl TEXT, " +
-                "plantDateOfAddition DATE)");
+                "plantDateOfAddition DATE,"+
+                "FOREIGN KEY (idPlace) references SITIO(id) ON DELETE CASCADE)");
+
+        /*
 
         db.execSQL("CREATE TABLE plants (" +
                 "id INTEGER PRIMARY KEY ASC, " +
                 "plantName TEXT, " +
                 "plantImage INTEGER, " +
                 "plantDataUrl TEXT )");
+        */
 
-        initializePlants(db);
-
+        //initializePlants(db);
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys='ON'");
+    }
+
+    /*
     private void initializePlants(SQLiteDatabase db){
         ContentValues insertPlantValues = new ContentValues();
         insertPlantValues.put("plantName","Geranio");
@@ -133,6 +143,7 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         db.insert("plants", null, insertPlantValues);
 
     }
+    */
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -13,9 +13,13 @@ import android.view.ViewGroup;
 
 import com.iplantas.iplantas.OffsetDecorationRecyclerView;
 import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.adapter.PlantInfoSearchListAdapter;
 import com.iplantas.iplantas.adapter.PlantSearchListAdapter;
 import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.model.PlantInfo;
 import com.iplantas.iplantas.persistence.MyStorage;
+import com.iplantas.iplantas.persistence.MyStoragePlants;
+import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
 import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 import java.util.ArrayList;
@@ -26,7 +30,8 @@ public class PlantsSearchListFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private List<String> plantsNamesArrayList = new ArrayList<>();
-    private PlantSearchListAdapter adapter;
+    //private PlantSearchListAdapter adapter;
+    private PlantInfoSearchListAdapter adapter;
 
     public PlantsSearchListFragment() {
     }
@@ -47,10 +52,16 @@ public class PlantsSearchListFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        /*
         MyStorage myPlantsStorage = new MyStorageSQLite(getContext());
         List<Plant> plantList = myPlantsStorage.searchPlants("");
         adapter = new PlantSearchListAdapter(plantList, mListener);
+        */
 
+        MyStoragePlants msp=new MyStoragePlantsPlain(this.getContext());
+        List<PlantInfo> plantList=msp.getPlantsInfo();
+        adapter = new PlantInfoSearchListAdapter(this.getContext(),plantList,mListener);
 
     }
 

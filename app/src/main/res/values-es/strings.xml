@@ -20,6 +20,6 @@
     <string name="site_delete">Borrar</string>
     <string name="my_places">Mis sitios</string>
     <string name="site_subtitle">Numero de plantas</string>
-    <string name="add_site">Pulsa el boton añadir para añadir tus sitios</string>
+    <string name="add_site">Pulsa el boton añadir para añadir un sitio</string>
     <string name="search_plant">Buscar planta</string>
 </resources>

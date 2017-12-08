@@ -104,18 +104,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pruebaPlantasInfo(){
-        /*
+
         MyStoragePlants msp=new MyStoragePlantsPlain(this);
-        PlantInfo p=msp.getPlantInfoByName("Petunias");
+        //PlantInfo p=msp.getPlantInfoByName("Lavanda");
+        PlantInfo p=msp.getPlantInfoById(4);
+        Log.e("ID",p.getId()+"");
         Log.e("Nombre",p.getName());
         Log.e("Tipo",p.getType());
-        Log.e("Riego",p.getRecomendedWatering(20)+"");
-        Log.e("Riego",p.getRecomendedWatering(24)+"");
-        Log.e("Sol",p.getRecomendedSun(20)+"");
-        Log.e("Sol",p.getRecomendedSun(24)+"");
-        Log.e("Soil",p.getRecomendedSoil()+"");
-        Log.e("Prune",p.getRecomendedPrune()+"");
-        Log.e("Flowering",p.getRecomendedFlowering()+"");
+        Log.e("Familia",p.getFamily());
+        Log.e("Riego",p.getRecomendedWatering(40)+"");
+        Log.e("Sol",p.getRecomendedSun(40)+"");
+        Log.e("Abono",p.getRecomendedSoil()+"");
+        Log.e("Tipo abono",p.getSoilType());
+        Log.e("Poda",p.getRecomendedPrune()+"");
+        Log.e("Florece",p.getRecomendedFlowering()+"");
+        Log.e("Rango Temp", p.getOptimalTemp(PlantInfo.MIN)+" - "+p.getOptimalTemp(PlantInfo.MAX));
+        Log.e("Localizacion",p.getLocation());
+        Log.e("Url",p.getUrl());
+        Log.e("Image",p.getImg());
+
+        Log.e("Proximo riego", p.getNextWateringDate(40).toString());//Proximo riego si la regamos ahora
+        Log.e("Proximo riego", p.getNextWateringDateFormat(40).toString());//Proximo riego si la regamos ahora
+        Log.e("Proximo abonoado", p.getNextSoilDate(40).toString());//Proximo abono si la abonamos ahora
+        Log.e("Proximo abonoado", p.getNextSoilDateFormat(40).toString());//Proximo abono si la abonamos ahora
+
+        /*
+        Log.e("Ecuador",p.getNextWateringDate(30.0f)+"");
+        Log.e("Casablanca",p.getNextWateringDate(33.0f)+"");
+        Log.e("Madrid",p.getNextWateringDate(40.0f)+"");
+        Log.e("Paris",p.getNextWateringDate(48.0f)+"");
+        Log.e("Berlin",p.getNextWateringDate(48.0f)+"");
+        Log.e("Glasgow",p.getNextWateringDate(55.0f)+"");
+        Log.e("Islandia",p.getNextWateringDate(64.0f)+"");
+
+        Log.e("Bogota",p.getNextWateringDate(4.0f)+"");
+        Log.e("Sao Paulo",p.getNextWateringDate(-23.0f)+"");
+        Log.e("Buenos Aires",p.getNextWateringDate(-34.0f)+"");
+        Log.e("Patagonia",p.getNextWateringDate(-54.0f)+"");
         */
     }
 }

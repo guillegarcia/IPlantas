@@ -62,6 +62,10 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
         viewHolder.num_plants.setText(this.contex.getResources().getString(R.string.site_subtitle));
         if(sites.get(position).getType()==Site.TYPE_EXAMPLE) {
             viewHolder.num_plants.setText(this.contex.getResources().getString(R.string.add_site));
+            viewHolder.link.setVisibility(View.INVISIBLE);
+        }
+        else{
+            viewHolder.link.setVisibility(View.VISIBLE);
         }
 
     }

@@ -1,9 +1,14 @@
 package com.iplantas.iplantas.model;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by vicch on 29/11/2017.
@@ -22,6 +27,9 @@ public class PlantInfo implements Comparable<PlantInfo>{
     public static final int MIN=0;
     public static final int MAX=1;
 
+    public static final Date EMPTY_DATE=new GregorianCalendar(2000,0,1,0,0,0).getTime();
+
+    private int id;
     private String name;
     private String type;
     private String family;
@@ -34,8 +42,10 @@ public class PlantInfo implements Comparable<PlantInfo>{
     private float[] optimalTemp;
     private String location;
     private String url;
+    private String img;
 
     public PlantInfo(String csvLine){
+        this.id=0;
         this.name = "";
         this.type = "";
         this.family = "";
@@ -48,22 +58,12 @@ public class PlantInfo implements Comparable<PlantInfo>{
         this.optimalTemp=new float[2];
         this.location="";
         this.url="";
+        this.img="";
         this.loadPlantInfo(csvLine);
     }
 
-    public PlantInfo(String name, String type, String family){
-        this.name = name;
-        this.type = type;
-        this.family = family;
-        this.watering=new int[2];
-        this.sun=new int[2];
-        this.soil=new int[4];
-        this.soilType="";
-        this.prune=new String[4];
-        this.flowering=new String[4];
-        this.optimalTemp=new float[2];
-        this.location="";
-        this.url="";
+    public int getId(){
+        return this.id;
     }
 
     public String getName() {
@@ -162,6 +162,19 @@ public class PlantInfo implements Comparable<PlantInfo>{
         this.url = url;
     }
 
+    public String getImg(){
+        return this.img;
+    }
+
+    public void setImg(String img){
+        this.img=img;
+    }
+
+    public int getImgResourceId(Context context){
+        Resources resources=context.getResources();
+        return resources.getIdentifier(this.img,"drawable",context.getPackageName());
+    }
+
     @Override
     public int compareTo(@NonNull PlantInfo o) {
         return (this.name.compareTo(o.name));
@@ -169,42 +182,46 @@ public class PlantInfo implements Comparable<PlantInfo>{
 
     private void loadPlantInfo(String csvLine){
         String[] columns=csvLine.split(";");
-        this.type=columns[0];
-        this.name=columns[1];
-        this.family=columns[2];
+        this.id=Integer.parseInt(columns[0]);
+        this.type=columns[1];
+        this.name=columns[2];
+        this.family=columns[3];
 
-        this.watering[PlantInfo.COLD]=Integer.parseInt(columns[3]);
-        this.watering[PlantInfo.HEAT]=Integer.parseInt(columns[4]);
+        this.watering[PlantInfo.COLD]=Integer.parseInt(columns[4]);
+        this.watering[PlantInfo.HEAT]=Integer.parseInt(columns[5]);
 
-        this.sun[PlantInfo.COLD]=Integer.parseInt(columns[5]);
-        this.sun[PlantInfo.HEAT]=Integer.parseInt(columns[6]);
+        this.sun[PlantInfo.COLD]=Integer.parseInt(columns[6]);
+        this.sun[PlantInfo.HEAT]=Integer.parseInt(columns[7]);
 
-        this.soil[PlantInfo.SPRING]=Integer.parseInt(columns[7]);
-        this.soil[PlantInfo.SUMMER]=Integer.parseInt(columns[8]);
-        this.soil[PlantInfo.AUTUMN]=Integer.parseInt(columns[9]);
-        this.soil[PlantInfo.WINTER]=Integer.parseInt(columns[10]);
+        this.soil[PlantInfo.SPRING]=Integer.parseInt(columns[8]);
+        this.soil[PlantInfo.SUMMER]=Integer.parseInt(columns[9]);
+        this.soil[PlantInfo.AUTUMN]=Integer.parseInt(columns[10]);
+        this.soil[PlantInfo.WINTER]=Integer.parseInt(columns[11]);
 
-        this.soilType=columns[11];
+        this.soilType=columns[12];
 
-        this.prune[PlantInfo.SPRING]=columns[12];
-        this.prune[PlantInfo.SUMMER]=columns[13];
-        this.prune[PlantInfo.AUTUMN]=columns[14];
-        this.prune[PlantInfo.WINTER]=columns[15];
+        this.prune[PlantInfo.SPRING]=columns[13];
+        this.prune[PlantInfo.SUMMER]=columns[14];
+        this.prune[PlantInfo.AUTUMN]=columns[15];
+        this.prune[PlantInfo.WINTER]=columns[16];
 
-        this.flowering[PlantInfo.SPRING]=columns[16];
-        this.flowering[PlantInfo.SUMMER]=columns[17];
-        this.flowering[PlantInfo.AUTUMN]=columns[18];
-        this.flowering[PlantInfo.WINTER]=columns[19];
+        this.flowering[PlantInfo.SPRING]=columns[17];
+        this.flowering[PlantInfo.SUMMER]=columns[18];
+        this.flowering[PlantInfo.AUTUMN]=columns[19];
+        this.flowering[PlantInfo.WINTER]=columns[20];
 
-        this.optimalTemp[PlantInfo.MIN]=Integer.parseInt(columns[20]);
-        this.optimalTemp[PlantInfo.MAX]=Integer.parseInt(columns[21]);
+        this.optimalTemp[PlantInfo.MIN]=Integer.parseInt(columns[21]);
+        this.optimalTemp[PlantInfo.MAX]=Integer.parseInt(columns[22]);
 
-        this.location=columns[22];
+        this.location=columns[23];
 
-        this.url=columns[23];
+        this.url=columns[24];
+
+        this.img=columns[25];
     }
 
-    private int nowSeason(){
+    //Obtiene la estacion del año con la fecha actual.
+    private int getCurrentSeason(){
         Date now=new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
@@ -220,7 +237,7 @@ public class PlantInfo implements Comparable<PlantInfo>{
         else if (month_day <= 921) { //22 Septiembre
             return PlantInfo.SUMMER;
         }
-        else if (month_day <= 1220) {
+        else if (month_day <= 1220) { // Diciembre
             return PlantInfo.AUTUMN;
         }
         else {
@@ -228,31 +245,118 @@ public class PlantInfo implements Comparable<PlantInfo>{
         }
     }
 
-    private int coldHeat(int temp){
-        if(temp<=22){
+    //Obtiene la temperatura media de ciertos paralelos
+    private int getTemperature(float lat){
+        if(lat>=0){
+            return getTemperatureNorth(lat);
+        }
+        else{
+            return getTemperatureSouth(lat);
+        }
+    }
+
+    //Paraleos al norte del ecuador
+    private int getTemperatureNorth(float lat){
+        int season=getCurrentSeason();
+        if(lat<=30){
+            return PlantInfo.HEAT;
+        }
+        else if(lat<=42){
+            if(season==PlantInfo.WINTER){
+                return PlantInfo.COLD;
+            }
+            return PlantInfo.HEAT;
+        }
+        else if(lat<=55){
+            if(season==PlantInfo.SUMMER){
+                return PlantInfo.HEAT;
+            }
             return PlantInfo.COLD;
         }
-        return PlantInfo.HEAT;
+        else{
+            return PlantInfo.COLD;
+        }
     }
 
-    public int getRecomendedWatering(int temp){
-        return this.watering[coldHeat(temp)];
+    //Paralelos al sud del ecuador
+    private int getTemperatureSouth(float lat){
+        int season=getCurrentSeason();
+        if(lat>=-30){
+            return PlantInfo.HEAT;
+        }
+        else if(lat>=-42){
+            if(season==PlantInfo.SUMMER){
+                return PlantInfo.COLD;
+            }
+            return PlantInfo.HEAT;
+        }
+        else if(lat>=-55){
+            if(season==PlantInfo.WINTER){
+                return PlantInfo.HEAT;
+            }
+            return PlantInfo.COLD;
+        }
+        else{
+            return PlantInfo.COLD;
+        }
     }
 
-    public int getRecomendedSun(int temp){
-        return this.sun[coldHeat(temp)];
+    private Date addDateToCurrent(int days){
+        Calendar cal = Calendar.getInstance();
+        if(days>0) {
+            Date now = new Date();
+            cal.setTime(now);
+            cal.add(Calendar.DATE, days);
+            return cal.getTime();
+        }
+        return EMPTY_DATE;
     }
 
+    //Obtener fecha proximo riego
+    public Date getNextWateringDate(float lat){
+        return addDateToCurrent(getRecomendedWatering(lat));
+    }
+
+    public String getNextWateringDateFormat(float lat){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(getNextWateringDate(lat));
+    }
+
+    //Obtener fecha proximo abono
+    public Date getNextSoilDate(float lat){
+        return addDateToCurrent(getRecomendedSoil());
+    }
+
+    public String getNextSoilDateFormat(float lat){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(getNextSoilDate(lat));
+    }
+
+    //Devuelve los dias de riego
+    public int getRecomendedWatering(float lat){
+        return this.watering[getTemperature(lat)];
+    }
+
+    //Devuelve un valor de Sol
+    public int getRecomendedSun(float lat){
+        return this.sun[getTemperature(lat)];
+    }
+
+    //Devuelve los dias de abono
     public int getRecomendedSoil(){
-        return this.soil[nowSeason()];
+        return this.soil[getCurrentSeason()];
     }
 
+    //Devuelve si se debe podar en esta estacion
     public String getRecomendedPrune(){
-        return this.prune[nowSeason()];
+        return this.prune[getCurrentSeason()];
     }
 
+    //Devuelve si florecera esta estacion
     public String getRecomendedFlowering(){
-        return this.flowering[nowSeason()];
+        return this.flowering[getCurrentSeason()];
     }
+
+
 
 }
