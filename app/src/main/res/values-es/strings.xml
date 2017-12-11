@@ -22,4 +22,5 @@
     <string name="site_subtitle">Numero de plantas</string>
     <string name="add_site">Pulsa el boton añadir para añadir un sitio</string>
     <string name="search_plant">Buscar planta</string>
+    <string name="share_app">Compartir app</string>
 </resources>

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
 public class MainActivity extends AppCompatActivity {
     CardView cardViewSitios, cardViewSearch;
+    Button share_button;
 
     private final static String LOG_TAG = "MainActivity";
 
@@ -58,8 +60,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        share_button = (Button) findViewById(R.id.share_button);
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compartirApp("Prueba esta interesante aplicación para cuidar tus plantas: " +
+                        "http://play.google.com/store/apps/details?id=" +
+                                getPackageName());
+            }
+        });
         pruebaBusqueda();
-
         pruebaPlantasInfo();
 
     }
@@ -142,5 +152,12 @@ public class MainActivity extends AppCompatActivity {
         Log.e("Buenos Aires",p.getNextWateringDate(-34.0f)+"");
         Log.e("Patagonia",p.getNextWateringDate(-54.0f)+"");
         */
+    }
+
+    public void compartirApp(String texto) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, texto);
+        startActivity(Intent.createChooser(i, "Selecciona aplicación"));
     }
 }

@@ -16,26 +16,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/main_name"
+        <LinearLayout android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
             android:background="#F1E6CC"
-            android:textStyle="bold"
             android:padding="15dp"
             android:elevation="4dp"
-            android:text="@string/app_name"/>
+            android:id="@+id/main_title"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/main_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"
+                android:text="@string/app_name"/>
+            <Button
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="4dp"
+                android:id="@+id/share_button"
+                android:background="@drawable/share_button"/>
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_name"
+            app:layout_constraintTop_toBottomOf="@+id/main_title"
             android:adjustViewBounds="true"
             android:elevation="4dp"
             android:src="@drawable/main_activity_top_image"/>
