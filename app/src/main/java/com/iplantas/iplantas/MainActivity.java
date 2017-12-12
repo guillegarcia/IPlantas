@@ -20,6 +20,7 @@ import com.iplantas.iplantas.activity.PlantSearchActivity;
 import com.iplantas.iplantas.activity.SitesActivity;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.PlantInfo;
+import com.iplantas.iplantas.model.RateMyApp;
 import com.iplantas.iplantas.persistence.MyStorage;
 import com.iplantas.iplantas.persistence.MyStoragePlants;
 import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                                 getPackageName());
             }
         });
-        pruebaBusqueda();
+        new RateMyApp(this).app_launched();
+        //pruebaBusqueda();
         pruebaPlantasInfo();
 
     }

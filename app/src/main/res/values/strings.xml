@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My Plants Manager</string>
     <string name="action_settings">Settings</string>
@@ -55,4 +56,13 @@
     <string name="no_posible_eliminar_sitio">No se ha podido eliminar el sitio</string>
     <string name="guardado">guardado</string>
     <string name="error_guardar">Error al guardar</string>
+    <string name="rate_title">Por favor, valora nuestra app.</string>
+    <string name="rate_option_one">1. Si te gusta My Plants, por favor, dale cinco estrellas en Play Store.</string>
+    <string name="rate_option_two">2. Si tienes algún problema con la app, contacta con nosotros.</string>
+    <string name="rate_contact_author">CONTACTAR CON EL AUTOR</string>
+    <string name="rate_five_stars">VOTA 5 ESTRELLAS</string>
+    <string name="author_email">empresa@gmail.com</string>
+    <string name="subject_email">Tarea My Plants: </string>
+    <string name="text_email">Introduce el texto</string>
+    <string name="send_email">Enviar Email</string>
 </resources>
