@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.erikjaen.audiolibros.MainActivity">
+    <item
+        android:id="@+id/menu_edit_plant"
+        android:orderInCategory="95"
+        android:title="Editar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_delete_plant"
+        android:orderInCategory="110"
+        android:title="Borrar"
+        app:showAsAction="never" />
+</menu>

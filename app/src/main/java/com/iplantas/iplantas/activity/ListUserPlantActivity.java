@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.ListUserPlantAdapter;
@@ -42,6 +46,7 @@ public class ListUserPlantActivity extends AppCompatActivity {
     private TextView textview;
     private CoordinatorLayout.LayoutParams lp;
     private TextView textViewEmptylist;
+    private ImageButton plantPopUpMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,7 @@ public class ListUserPlantActivity extends AppCompatActivity {
             }
         });
         adapterListUserPlant.notifyDataSetChanged();
+
     }
 
     public void openSearchPlant(long idSite,String nameSite) {
