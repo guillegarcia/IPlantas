@@ -100,7 +100,11 @@ public class AddPlantActivity  extends AppCompatActivity {
                     String toastText = "Planta - " +  myPlant.getPlantName() + " - insertada.";
                     Toast.makeText(AddPlantActivity.this,toastText, Toast.LENGTH_LONG).show();
                     myPlantsStorage.addPlant(myPlant);
-                    onBackPressed();
+                    //onBackPressed();
+                    Intent intent = new Intent(AddPlantActivity.this,ListUserPlantActivity.class);
+                    intent.putExtra("idSite", idSite);
+                    intent.putExtra("nameSite", nameSite);
+                    startActivity(intent);
                 }else{
                     new AlertDialog.Builder(AddPlantActivity.this)
                             .setTitle(getResources().getString(R.string.title_dialog_no_name_plant))

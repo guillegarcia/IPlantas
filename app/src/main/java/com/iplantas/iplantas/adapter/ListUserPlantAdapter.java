@@ -26,6 +26,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.PlantInfo;
+import com.iplantas.iplantas.persistence.MyStoragePlants;
 import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
 
 import java.util.ArrayList;
@@ -42,10 +43,13 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
     private static RequestQueue requestQueue;
     private static ImageLoader imageLoader;
     private Context context;
+    List<PlantInfo> plantList;
 
     public ListUserPlantAdapter(Context context, List<Plant> list) {
         this.list = list;
         this.context = context;
+        MyStoragePlants msp=new MyStoragePlantsPlain(context);
+        plantList =msp.getPlantsInfo();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

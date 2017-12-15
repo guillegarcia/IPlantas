@@ -6,14 +6,12 @@
     android:layout_height="140dp"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginEnd="20dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
-    card_view:cardUseCompatPadding="true"
     card_view:cardBackgroundColor="#ffffff"
-    android:layout_marginStart="20dp">
+    android:layout_marginStart="16dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
