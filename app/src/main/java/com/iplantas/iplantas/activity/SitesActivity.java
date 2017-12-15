@@ -2,13 +2,17 @@ package com.iplantas.iplantas.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.ListUserPlantAdapter;
@@ -27,13 +31,16 @@ public class SitesActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerAdapterSite adapter;
     private RecyclerView.LayoutManager lManager;
-
+    private TextView textView;
     private List<Site> sites;
+    private CoordinatorLayout.LayoutParams lp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sites);
+
+        textView = (TextView)findViewById(R.id.text_add_place);
 
         /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,14 +55,18 @@ public class SitesActivity extends AppCompatActivity {
 
         MyStorage db=new MyStorageSQLite(this);
         sites=db.getSites();
-
+        lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
         if(sites.size()==0){
-
-            Site example= Site.SiteBuilder.site()
+            textView.setVisibility(View.VISIBLE);
+            lp.anchorGravity = Gravity.CENTER;
+            /*Site example= Site.SiteBuilder.site()
                     .withName("Sitio de ejemplo")
                     .withType(3)
                     .build();
-            this.sites.add(example);
+            this.sites.add(example);*/
+        }else{
+            textView.setVisibility(View.GONE);
+            lp.anchorGravity = Gravity.BOTTOM | GravityCompat.END;
         }
 
         recycler = (RecyclerView) findViewById(R.id.recycler_sites);
@@ -125,6 +136,8 @@ public class SitesActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == SITE_ACTIVITY){
+            textView.setVisibility(View.GONE);
+            lp.anchorGravity = Gravity.BOTTOM | GravityCompat.END;
             loadSites();
         }
     }

@@ -24,115 +24,122 @@
     </android.support.design.widget.AppBarLayout>
     -->
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_margin="16dp"
-        android:paddingBottom="32dp">
+    <android.support.v4.widget.NestedScrollView android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-        <TextView
-            android:id="@+id/title_site"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/site_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_name"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/actionBarSize"
-            android:transitionGroup="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_site"
-            android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/form_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edit_site_name"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:textSize="14dp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-        <LinearLayout
-            android:id="@+id/til_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_name">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_margin="16dp"
+            android:paddingBottom="32dp">
 
             <TextView
+                android:id="@+id/title_site"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/site_type"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/site_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="16dp"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:attr/actionBarSize"
+                android:transitionGroup="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_site"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/form_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/edit_site_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:textSize="14dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/til_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_name">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/site_type"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#999" />
+
+                <Spinner
+                    android:id="@+id/form_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/localizacion"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_type"
+                android:layout_marginTop="16dp"
                 android:textColor="#999" />
 
-            <Spinner
-                android:id="@+id/form_type"
+            <fragment
+                android:id="@+id/siteLocationMap"
+                class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="200dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_location" />
 
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/title_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/localizacion"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_type"
-            android:layout_marginTop="16dp"
-            android:textColor="#999"/>
-
-        <fragment
-            android:id="@+id/siteLocationMap"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_location" />
-
-        <LinearLayout
-            android:id="@+id/add_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/siteLocationMap"
-            android:layout_margin="8dp"
-            android:elevation="4dp">
-            <Button
-                android:id="@+id/add_plant_accept"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/add_buttons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/siteLocationMap"
                 android:layout_margin="8dp"
-                android:text="@string/site_save"
-                style="@style/CustomButton"
-                android:onClick="save"/>
-            <Button
-                android:id="@+id/add_plant_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_margin="8dp"
-                style="@style/CustomButton"
-                android:text="@string/site_delete"
-                android:onClick="confirm"/>
-        </LinearLayout>
+                android:elevation="4dp">
 
-    </android.support.constraint.ConstraintLayout>
+                <Button
+                    android:id="@+id/add_plant_accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_margin="8dp"
+                    android:text="@string/site_save"
+                    style="@style/CustomButton"
+                    android:onClick="save" />
+
+                <Button
+                    android:id="@+id/add_plant_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_margin="8dp"
+                    style="@style/CustomButton"
+                    android:text="@string/site_delete"
+                    android:onClick="confirm" />
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 
 </android.support.design.widget.CoordinatorLayout>

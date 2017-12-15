@@ -45,15 +45,15 @@ public class RecyclerAdapterSite extends RecyclerView.Adapter <RecyclerAdapterSi
                 break;
             }
             case Site.TYPE_MAIN:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.my_home));
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_interior));
                 break;
             }
             case Site.TYPE_OTHER:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.second_home));
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_exterior));
                 break;
             }
             case Site.TYPE_WORK:{
-                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.work_home));
+                viewHolder.image.setImageDrawable(ContextCompat.getDrawable(contex, R.drawable.site_work));
                 break;
             }
         }

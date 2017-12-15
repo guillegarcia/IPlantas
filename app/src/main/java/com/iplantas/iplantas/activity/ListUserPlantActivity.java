@@ -2,11 +2,14 @@ package com.iplantas.iplantas.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -37,6 +40,8 @@ public class ListUserPlantActivity extends AppCompatActivity {
     private LinearLayout linearLayoutEmptyList;
     private Button addPlantButton;
     private TextView textview;
+    private CoordinatorLayout.LayoutParams lp;
+    private TextView textViewEmptylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +63,23 @@ public class ListUserPlantActivity extends AppCompatActivity {
                 openSearchPlant(idSite,nameSite);
             }
         });
+
+
         if (nameSite.equals("")) {
             listPlant = myStorage.listOfPlants();
         }else{
             listPlant = myStorage.listOfPlants(idSite);
         }
 
-        showTextAndButtonWhenPlantsListIsEmpty(fab);
+        lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        textViewEmptylist = (TextView)findViewById(R.id.text_add_plant);
+        if (listPlant.size() < 1 || listPlant == null) {
+            textViewEmptylist.setVisibility(View.VISIBLE);
+            lp.anchorGravity = Gravity.CENTER;
+        }else{
+            textViewEmptylist.setVisibility(View.GONE);
+            lp.anchorGravity = Gravity.BOTTOM | GravityCompat.END;
+        }
 
         Iterator itrNot = listPlant.iterator();
         recyclerView = (RecyclerView) findViewById(R.id.plants_of_user_recycler_view);
@@ -81,26 +96,6 @@ public class ListUserPlantActivity extends AppCompatActivity {
             }
         });
         adapterListUserPlant.notifyDataSetChanged();
-    }
-
-    private void showTextAndButtonWhenPlantsListIsEmpty(FloatingActionButton fab) {
-        textview = (TextView)findViewById(R.id.empty_list_user_plant_text);
-        addPlantButton = (Button)findViewById(R.id.empty_list_user_plant_button);
-        if (listPlant.size() < 1 || listPlant == null) {
-            fab.setVisibility(View.GONE);
-            textview.setVisibility(View.VISIBLE);
-            addPlantButton.setVisibility(View.VISIBLE);
-            addPlantButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openSearchPlant(idSite,nameSite);
-                }
-            });
-        }else{
-            fab.setVisibility(View.VISIBLE);
-            textview.setVisibility(View.GONE);
-            addPlantButton.setVisibility(View.GONE);
-        }
     }
 
     public void openSearchPlant(long idSite,String nameSite) {
