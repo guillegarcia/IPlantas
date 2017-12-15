@@ -15,6 +15,11 @@ import android.widget.Button;
 
 import java.util.List;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.iplantas.iplantas.activity.ListUserPlantActivity;
 import com.iplantas.iplantas.activity.PlantSearchActivity;
 import com.iplantas.iplantas.activity.SitesActivity;
@@ -32,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
     Button share_button;
 
     private final static String LOG_TAG = "MainActivity";
+
+    private final static String ID_APP="ca-app-pub-4358904687418644~3098006133";
+    private final static String ID_BANNER="ca-app-pub-4358904687418644/9105791539";
+    private final static String ID_INTERSTICIAL="ca-app-pub-4358904687418644/1742306837";
+    private final static String ID_DISPOSITIVO="B37FB1515A985A878ED507C9AC413FE0";
+
+    private AdView adView;
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         new RateMyApp(this).app_launched();
+
+        MobileAds.initialize(this,ID_APP);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder() .addTestDevice(ID_DISPOSITIVO).build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice(ID_DISPOSITIVO).build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                openSite();
+                interstitialAd.loadAd(new AdRequest.Builder() .addTestDevice(ID_INTERSTICIAL).build());
+            }
+        });
+
         //pruebaBusqueda();
         pruebaPlantasInfo();
 
@@ -111,6 +142,21 @@ public class MainActivity extends AppCompatActivity {
     */
 
     public void sitios(View view){
+        int numAleatorio=(int)Math.floor(Math.random()*(0-(10+1))+(10));
+        if(numAleatorio%2==0) {
+            if (interstitialAd.isLoaded()) {
+                interstitialAd.show();
+            }
+            else{
+                openSite();
+            }
+        }
+        else{
+            openSite();
+        }
+    }
+
+    private void openSite(){
         Intent intent = new Intent(this, SitesActivity.class);
         startActivity(intent);
     }

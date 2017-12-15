@@ -1,160 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="#45D0D3D8"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.iplantas.iplantas.MainActivity"
-    tools:showIn="@layout/activity_main">
+    android:orientation="vertical">
 
-
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="#45D0D3D8"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.iplantas.iplantas.MainActivity"
+        tools:showIn="@layout/activity_main">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#F1E6CC"
+                android:padding="15dp"
+                android:elevation="4dp"
+                android:id="@+id/main_title"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/main_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:text="@string/app_name"/>
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:elevation="4dp"
+                    android:id="@+id/share_button"
+                    android:background="@drawable/share_button"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_title"
+                android:adjustViewBounds="true"
+                android:elevation="4dp"
+                android:src="@drawable/main_activity_top_image"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
         <LinearLayout android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:background="#F1E6CC"
-            android:padding="15dp"
-            android:elevation="4dp"
-            android:id="@+id/main_title"
+            android:layout_margin="4dp"
             android:weightSum="2">
-            <TextView
-                android:id="@+id/main_name"
-                android:layout_width="match_parent"
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/colorPrimaryDark"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                android:id="@+id/cardview_sitios"
                 android:layout_weight="1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"
-                android:text="@string/app_name"/>
-            <Button
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardBackgroundColor="#ffffff">
+
+                <LinearLayout android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/sitios_icon"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_home_black_24dp"
+                        android:layout_gravity="center_horizontal|top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sitios_title"
+                        android:layout_margin="4dp"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_below="@+id/sitios_icon"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:text="@string/my_places"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:elevation="4dp"
-                android:id="@+id/share_button"
-                android:background="@drawable/share_button"/>
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp"
+                android:layout_weight="1"
+                android:id="@+id/cardview_search"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardBackgroundColor="#ffffff">
+
+                <LinearLayout android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_search_black_24dp"
+                        android:id="@+id/search_plant_icon"
+                        android:layout_gravity="center_horizontal|top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/search_plant_title"
+                        android:layout_margin="4dp"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_below="@+id/sitios_icon"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:text="@string/search_plant"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_title"
-            android:adjustViewBounds="true"
-            android:elevation="4dp"
-            android:src="@drawable/main_activity_top_image"/>
-
-    </android.support.constraint.ConstraintLayout>
-
-
-    <LinearLayout android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_margin="4dp"
-        android:weightSum="2">
-
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp"
-            android:id="@+id/cardview_sitios"
-            android:layout_weight="1"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardBackgroundColor="#ffffff">
-
-            <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:id="@+id/sitios_icon"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_home_black_24dp"
-                    android:layout_gravity="center_horizontal|top" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sitios_title"
-                    android:layout_margin="4dp"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:layout_below="@+id/sitios_icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:text="@string/my_places"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp"
-            android:layout_weight="1"
-            android:id="@+id/cardview_search"
-            card_view:cardUseCompatPadding="true"
-            card_view:cardBackgroundColor="#ffffff">
-
-            <LinearLayout android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:padding="8dp"
-                    android:src="@drawable/ic_search_black_24dp"
-                    android:id="@+id/search_plant_icon"
-                    android:layout_gravity="center_horizontal|top" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/search_plant_title"
-                    android:layout_margin="4dp"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:layout_below="@+id/sitios_icon"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:text="@string/search_plant"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sitios"
-        android:onClick="sitios"/>
-
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-4358904687418644/9105791539" />
 
 </LinearLayout>
