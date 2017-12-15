@@ -19,6 +19,17 @@
     <string name="site_save">Guardar</string>
     <string name="site_delete">Borrar</string>
     <string name="my_places">Mis sitios</string>
+    <string name="watering">Riego</string>
+    <string name="sun">Sol</string>
+    <string name="soil">Abono</string>
+    <string name="prune">Poda</string>
+    <string name="often">Primavera y Otoño</string>
+    <string name="it_doesnt_need">Primavera</string>
+    <string name="flowering">Floración</string>
+    <string name="location">Localización</string>
+    <string name="summer">Verano</string>
+    <string name="outside">Exterior</string>
+    <string name="more_info_here">Más Info aquí!</string>
     <string name="site_subtitle">Numero de plantas</string>
     <string name="add_site">Pulsa el boton añadir para añadir un sitio</string>
     <string name="search_plant">Buscar planta</string>

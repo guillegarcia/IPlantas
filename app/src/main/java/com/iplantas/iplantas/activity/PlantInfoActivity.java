@@ -5,13 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iplantas.iplantas.R;
 
 public class PlantInfoActivity extends AppCompatActivity {
-    TextView moreInfoText, plantName, addPlantToUserListText;
+    TextView  plantName;
+    Button moreInfoButton,addPlantButton ;
     ImageView plantImage;
     private static final String PLANT_NAME = "plant_name";
     private static final String ID_SITE = "idSite";
@@ -35,8 +37,8 @@ public class PlantInfoActivity extends AppCompatActivity {
         final long idSite = extras.getLong(ID_SITE);
         final String nameSite = extras.getString(NAME_SITE);
         final int idSpecie = extras.getInt(PLANT_ID);
-        addPlantToUserListText = (TextView)findViewById(R.id.info_plant_add_to_user_list);
-        addPlantToUserListText.setOnClickListener(new View.OnClickListener() {
+        addPlantButton = (Button)findViewById(R.id.info_plant_add_to_user_list);
+        addPlantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (idSite != 0) {
@@ -68,8 +70,8 @@ public class PlantInfoActivity extends AppCompatActivity {
     }
 
     private void setupMoreInfoText() {
-        moreInfoText = (TextView)findViewById(R.id.info_plant_more_info_text);
-        moreInfoText.setOnClickListener(new View.OnClickListener() {
+        moreInfoButton = (Button)findViewById(R.id.info_plant_more_info_text);
+        moreInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
