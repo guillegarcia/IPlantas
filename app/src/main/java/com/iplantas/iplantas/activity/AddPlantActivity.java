@@ -53,10 +53,12 @@ public class AddPlantActivity  extends AppCompatActivity {
     private static final String PLANT_NAME = "plant_name";
     private static final String ID_SITE = "idSite";
     private static final String NAME_SITE = "nameSite";
+    private static final String PLANT_ID = "plant_id";
     private static final String initial_date = "01-January-2015";
     private int positionDays;
     private long idSite;
     private String nameSite;
+    private int idSpecie;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,7 @@ public class AddPlantActivity  extends AppCompatActivity {
         String species = extras.getString(PLANT_NAME);
         idSite = extras.getLong(ID_SITE);
         nameSite = extras.getString(NAME_SITE);
+        idSpecie = extras.getInt(PLANT_ID);
         addPlantTitle = (TextView) findViewById(R.id.add_plant_title);
         addPlantLabelPlace = (TextView) findViewById(R.id.add_plant_label_place);
         addPlantNamePlace = (TextView) findViewById(R.id.add_plant_name_place);
@@ -90,6 +93,7 @@ public class AddPlantActivity  extends AppCompatActivity {
                     MyStorage myPlantsStorage = new MyStorageSQLite(AddPlantActivity.this);
                     Plant myPlant = new Plant.PlantBuilder()
                             .withIdPlace(idSite)
+                            .withIdSpecies(idSpecie)
                             .withPlantName(String.valueOf(addPlantNameName.getText()))
                             .withPlantLastWatered(pickedDate)
                             .buildPlant();

@@ -50,7 +50,11 @@ public class PlantInfoSearchListAdapter extends RecyclerView.Adapter<PlantInfoSe
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onListFragmentInteraction(holder.plantName.getText().toString(),mValues.get(pos).getImgResourceId(context), holder.plantImage );
+                    mListener.onListFragmentInteraction(
+                            holder.plantName.getText().toString(),
+                            mValues.get(pos).getImgResourceId(context),
+                            mValues.get(pos).getId(),
+                            holder.plantImage );
                 }
             }
         });

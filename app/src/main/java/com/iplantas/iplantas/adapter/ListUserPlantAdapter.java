@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Plant;
+import com.iplantas.iplantas.model.PlantInfo;
+import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,7 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Boolean thereIsConnection = true;
+//        Boolean thereIsConnection = true;
         final Plant objIncome = list.get(position);
         //String principalTextPlant = objIncome.getPlantName();
         //holder.userListPlantName.setText(objIncome.getPlantName());
@@ -60,36 +62,16 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
         String infoPlant = objIncome.getPlantLastWatered().toString();
         holder.userListPlantInfo.setText(infoPlant);
 
-        thereIsConnection = isNetworkConnected();
+/*        thereIsConnection = isNetworkConnected();
         if(thereIsConnection) {
-/*            imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
-                private final LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
-
-                public void putBitmap(String url, Bitmap bitmap) {
-                    cache.put(url, bitmap);
-                }
-
-                public Bitmap getBitmap(String url) {
-                    return cache.get(url);
-                }
-            });
-            imageLoader.get(objIncome.getPlantImageUrl(), new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    Bitmap bitmap = response.getBitmap();
-                    holder.userListPlantImage.setImageBitmap(bitmap);
-                    holder.userListPlantImage.invalidate();
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
-                }
-            });*/
             holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
         }else{
             holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
-        }
+        }*/
+        MyStoragePlantsPlain myStoragePlantsPlain = new MyStoragePlantsPlain(context);
+        PlantInfo plantInfo = myStoragePlantsPlain.getPlantInfoById(objIncome.getIdSpecies());
+        int idSpecie = plantInfo.getImgResourceId(context);
+        holder.userListPlantImage.setImageResource(idSpecie);
     }
 
     private boolean isNetworkConnected() {

@@ -18,6 +18,7 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsSear
     private static final String NAME_SITE = "nameSite";
     private static final String PLANT_NAME = "plant_name";
     private static final String PLANT_IMAGE = "plant_image";
+    private static final String PLANT_ID = "plant_id";
     private long idSite;
     private String nameSite;
     @Override
@@ -40,14 +41,13 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsSear
     }
 
     @Override
-    public void onListFragmentInteraction(String plantName, int plantImage, View viewForAnimation) {
+    public void onListFragmentInteraction(String plantName, int plantImage, int plantId, View viewForAnimation) {
         Intent intent = new Intent(PlantSearchActivity.this, PlantInfoActivity.class);
         intent.putExtra(PLANT_NAME, plantName);
         intent.putExtra(ID_SITE, idSite);
         intent.putExtra(NAME_SITE, nameSite);
         intent.putExtra(PLANT_IMAGE, plantImage);
-
-
+        intent.putExtra(PLANT_ID, plantId);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(PlantSearchActivity.this, new Pair<View, String>(viewForAnimation, getString(R.string.transition_name_plant_img)));
         ActivityCompat.startActivity(PlantSearchActivity.this, intent, options.toBundle());
 

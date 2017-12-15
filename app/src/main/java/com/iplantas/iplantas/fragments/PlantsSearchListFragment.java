@@ -125,6 +125,6 @@ public class PlantsSearchListFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(String item, int plantImage, View viewForAnimation);
+        void onListFragmentInteraction(String item, int plantImage, int plantId, View viewForAnimation);
     }
 }
