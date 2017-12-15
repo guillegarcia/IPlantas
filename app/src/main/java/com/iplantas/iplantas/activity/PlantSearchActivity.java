@@ -52,6 +52,6 @@ public class PlantSearchActivity extends AppCompatActivity implements PlantsSear
         ActivityCompat.startActivity(PlantSearchActivity.this, intent, options.toBundle());
 
         //startActivity(intent);
-        //finish();
+        finish();
     }
 }

@@ -105,6 +105,7 @@ public class AddPlantActivity  extends AppCompatActivity {
                     intent.putExtra("idSite", idSite);
                     intent.putExtra("nameSite", nameSite);
                     startActivity(intent);
+                    finish();
                 }else{
                     new AlertDialog.Builder(AddPlantActivity.this)
                             .setTitle(getResources().getString(R.string.title_dialog_no_name_plant))

@@ -51,6 +51,7 @@ public class PlantInfoActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(PlantInfoActivity.this, SitesActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
