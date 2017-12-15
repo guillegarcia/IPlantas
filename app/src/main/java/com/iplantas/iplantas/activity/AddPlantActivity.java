@@ -101,10 +101,11 @@ public class AddPlantActivity  extends AppCompatActivity {
                     Toast.makeText(AddPlantActivity.this,toastText, Toast.LENGTH_LONG).show();
                     myPlantsStorage.addPlant(myPlant);
                     //onBackPressed();
-                    Intent intent = new Intent(AddPlantActivity.this,ListUserPlantActivity.class);
-                    intent.putExtra("idSite", idSite);
-                    intent.putExtra("nameSite", nameSite);
-                    startActivity(intent);
+//                    Intent intent = new Intent(AddPlantActivity.this,ListUserPlantActivity.class);
+//                    intent.putExtra("idSite", idSite);
+//                    intent.putExtra("nameSite", nameSite);
+//                    startActivity(intent);
+                    //onBackPressed();
                     finish();
                 }else{
                     new AlertDialog.Builder(AddPlantActivity.this)
