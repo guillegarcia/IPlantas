@@ -52,7 +52,7 @@
         android:layout_gravity="center"
         android:id="@+id/text_add_place"
         android:lines="2"
-        android:text="Indica el lugar donde tienes tus plantas"
+        android:text="Añade el lugar donde \n tienes tus plantas"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textAlignment="center"
