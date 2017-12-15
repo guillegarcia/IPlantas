@@ -12,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.MobileAds;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.ListUserPlantAdapter;
 import com.iplantas.iplantas.adapter.RecyclerAdapterSite;
+import com.iplantas.iplantas.model.RateMyApp;
 import com.iplantas.iplantas.model.Site;
 import com.iplantas.iplantas.persistence.MyStorage;
 import com.iplantas.iplantas.persistence.MyStorageSQLite;
@@ -34,6 +37,7 @@ public class SitesActivity extends AppCompatActivity {
     private TextView textView;
     private List<Site> sites;
     private CoordinatorLayout.LayoutParams lp;
+    private Button share_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,18 @@ public class SitesActivity extends AppCompatActivity {
             textView.setVisibility(View.GONE);
             lp.anchorGravity = Gravity.BOTTOM | GravityCompat.END;
         }
+
+        share_button = (Button) findViewById(R.id.share_button);
+        share_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compartirApp("Prueba esta interesante aplicación para cuidar tus plantas: " +
+                        "http://play.google.com/store/apps/details?id=" +
+                        getPackageName());
+            }
+        });
+        new RateMyApp(this).app_launched();
+
 
         recycler = (RecyclerView) findViewById(R.id.recycler_sites);
         recycler.setHasFixedSize(true);
@@ -140,6 +156,14 @@ public class SitesActivity extends AppCompatActivity {
             lp.anchorGravity = Gravity.BOTTOM | GravityCompat.END;
             loadSites();
         }
+    }
+
+
+    public void compartirApp(String texto) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_TEXT, texto);
+        startActivity(Intent.createChooser(i, "Selecciona aplicación"));
     }
 
 }
