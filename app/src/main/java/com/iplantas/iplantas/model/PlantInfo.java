@@ -246,7 +246,7 @@ public class PlantInfo implements Comparable<PlantInfo>{
     }
 
     //Obtiene la temperatura media de ciertos paralelos
-    private int getTemperature(float lat){
+    private int getTemperature(double lat){
         if(lat>=0){
             return getTemperatureNorth(lat);
         }
@@ -256,7 +256,7 @@ public class PlantInfo implements Comparable<PlantInfo>{
     }
 
     //Paraleos al norte del ecuador
-    private int getTemperatureNorth(float lat){
+    private int getTemperatureNorth(double lat){
         int season=getCurrentSeason();
         if(lat<=30){
             return PlantInfo.HEAT;
@@ -279,7 +279,7 @@ public class PlantInfo implements Comparable<PlantInfo>{
     }
 
     //Paralelos al sud del ecuador
-    private int getTemperatureSouth(float lat){
+    private int getTemperatureSouth(double lat){
         int season=getCurrentSeason();
         if(lat>=-30){
             return PlantInfo.HEAT;
@@ -312,33 +312,79 @@ public class PlantInfo implements Comparable<PlantInfo>{
         return EMPTY_DATE;
     }
 
+    private Date addDate(int days, Date actual){
+        Calendar cal = Calendar.getInstance();
+        if(days>0) {
+            Date now = new Date();
+            cal.setTime(actual);
+            cal.add(Calendar.DATE, days);
+            return cal.getTime();
+        }
+        return EMPTY_DATE;
+    }
+
     //Obtener fecha proximo riego
-    public Date getNextWateringDate(float lat){
+    public Date getNextWateringDate(double lat){
         return addDateToCurrent(getRecomendedWatering(lat));
     }
 
-    public String getNextWateringDateFormat(float lat){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(getNextWateringDate(lat));
+    public Date getNextWateringDate(double lat, Date date){
+        return addDate(getRecomendedWatering(lat),date);
     }
 
+    public String getNextWateringDateFormat(double lat){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date d=getNextWateringDate(lat);
+        if(!d.equals(EMPTY_DATE)){
+            return sdf.format(d);
+        }
+        return "";
+    }
+
+    public String getNextWateringDateFormat(double lat, Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date d=getNextWateringDate(lat,date);
+        if(!d.equals(EMPTY_DATE)){
+            return sdf.format(d);
+        }
+        return "";
+    }
+
+
     //Obtener fecha proximo abono
-    public Date getNextSoilDate(float lat){
+    public Date getNextSoilDate(double lat){
         return addDateToCurrent(getRecomendedSoil());
     }
 
-    public String getNextSoilDateFormat(float lat){
+    public Date getNextSoilDate(double lat, Date date){
+        return addDate(getRecomendedSoil(),date);
+    }
+
+    public String getNextSoilDateFormat(double lat){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(getNextSoilDate(lat));
+        Date d=getNextSoilDate(lat);
+        if(!d.equals(EMPTY_DATE)){
+            return sdf.format(d);
+        }
+        return "";
+    }
+
+    public String getNextSoilDateFormat(double lat, Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date d=getNextSoilDate(lat,date);
+        if(!d.equals(EMPTY_DATE)){
+            return sdf.format(d);
+        }
+        return "";
     }
 
     //Devuelve los dias de riego
-    public int getRecomendedWatering(float lat){
+    public int getRecomendedWatering(double lat){
         return this.watering[getTemperature(lat)];
     }
 
     //Devuelve un valor de Sol
-    public int getRecomendedSun(float lat){
+    public int getRecomendedSun(double lat){
         return this.sun[getTemperature(lat)];
     }
 

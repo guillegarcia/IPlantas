@@ -17,7 +17,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
             android:background="@android:color/transparent"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:elevation="4dp" >
@@ -54,7 +54,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:background="@drawable/sitios_background_white"/>
 
     <TextView
@@ -71,24 +71,40 @@
         android:layout_marginRight="60dp"
         android:layout_marginBottom="130dp"
         android:textStyle="bold" />
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/content_sites"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.iplantas.iplantas.activity.SitesActivity"
-        tools:showIn="@layout/activity_sites">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_sites"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/content_sites"
             android:layout_width="match_parent"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.iplantas.iplantas.activity.SitesActivity"
+            tools:showIn="@layout/activity_sites">
 
-    </android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_sites"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:adSize="SMART_BANNER"
+            app:adUnitId="ca-app-pub-4358904687418644/9105791539" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

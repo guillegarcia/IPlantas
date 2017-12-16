@@ -15,6 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.adapter.ListUserPlantAdapter;
@@ -30,6 +34,14 @@ import java.util.List;
 public class SitesActivity extends AppCompatActivity {
 
     public static final int SITE_ACTIVITY=1;
+
+    private final static String ID_APP="ca-app-pub-4358904687418644~3098006133";
+    private final static String ID_BANNER="ca-app-pub-4358904687418644/9105791539";
+    private final static String ID_INTERSTICIAL="ca-app-pub-4358904687418644/1742306837";
+    private final static String ID_DISPOSITIVO="B37FB1515A985A878ED507C9AC413FE0";
+
+    private AdView adView;
+    private InterstitialAd interstitialAd;
 
     private RecyclerView recycler;
     private RecyclerAdapterSite adapter;
@@ -104,7 +116,7 @@ public class SitesActivity extends AppCompatActivity {
             public void cardViewOnClick(View v, int position) {
                 Site site=sites.get(position);
                 if(site.getType()!=Site.TYPE_EXAMPLE) {
-                    openPlant(site);
+                    openPlantIntersticial(site);
                 }
             }
 
@@ -119,6 +131,22 @@ public class SitesActivity extends AppCompatActivity {
                     }
                 })
         );*/
+
+        MobileAds.initialize(this,ID_APP);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder() .addTestDevice(ID_DISPOSITIVO).build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice(ID_DISPOSITIVO).build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice(ID_DISPOSITIVO).build());
+            }
+        });
 
     }
 
@@ -135,11 +163,29 @@ public class SitesActivity extends AppCompatActivity {
         intent.putExtra("id",id);
         startActivity(intent);
     }*/
+
+    private void openPlantIntersticial(Site site){
+        int numAleatorio=(int)Math.floor(Math.random()*(0-(10+1))+(10));
+        if(numAleatorio%3==0) {
+            if (interstitialAd.isLoaded()) {
+                openPlant(site);
+                interstitialAd.show();
+            }
+            else{
+                openPlant(site);
+            }
+        }
+        else{
+            openPlant(site);
+        }
+    }
     private void openPlant(Site site){
-        Intent intent=new Intent(this,ListUserPlantActivity.class);
-        intent.putExtra("idSite",site.getId());
-        intent.putExtra("nameSite",site.getName());
+
+        Intent intent = new Intent(this, ListUserPlantActivity.class);
+        intent.putExtra("idSite", site.getId());
+        intent.putExtra("nameSite", site.getName());
         startActivity(intent);
+
     }
 
     private void loadSites(){
@@ -157,7 +203,6 @@ public class SitesActivity extends AppCompatActivity {
             loadSites();
         }
     }
-
 
     public void compartirApp(String texto) {
         Intent i = new Intent(Intent.ACTION_SEND);

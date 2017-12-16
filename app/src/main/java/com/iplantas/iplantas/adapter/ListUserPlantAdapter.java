@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -26,10 +27,15 @@ import com.android.volley.toolbox.ImageLoader;
 import com.iplantas.iplantas.R;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.PlantInfo;
+import com.iplantas.iplantas.model.Site;
+import com.iplantas.iplantas.persistence.MyStorage;
 import com.iplantas.iplantas.persistence.MyStoragePlants;
 import com.iplantas.iplantas.persistence.MyStoragePlantsPlain;
+import com.iplantas.iplantas.persistence.MyStorageSQLite;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,38 +77,8 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
         String infoPlant = objIncome.getPlantLastWatered().toString();
         holder.userListPlantInfo.setText(infoPlant);
 
-/*        thereIsConnection = isNetworkConnected();
-        if(thereIsConnection) {
-*//*            imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
-                private final LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(10);
-
-                public void putBitmap(String url, Bitmap bitmap) {
-                    cache.put(url, bitmap);
-                }
-
-                public Bitmap getBitmap(String url) {
-                    return cache.get(url);
-                }
-            });
-            imageLoader.get(objIncome.getPlantImageUrl(), new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    Bitmap bitmap = response.getBitmap();
-                    holder.userListPlantImage.setImageBitmap(bitmap);
-                    holder.userListPlantImage.invalidate();
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
-                }
-            });*//*
-            holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
-        }else{
-            holder.userListPlantImage.setImageResource(R.drawable.img_plant_two);
-        }*/
         MyStoragePlantsPlain myStoragePlantsPlain = new MyStoragePlantsPlain(context);
-        PlantInfo plantInfo = myStoragePlantsPlain.getPlantInfoById(objIncome.getIdSpecies());
+        final PlantInfo plantInfo = myStoragePlantsPlain.getPlantInfoById(objIncome.getIdSpecies());
         int idSpecie = plantInfo.getImgResourceId(context);
         holder.userListPlantImage.setImageResource(idSpecie);
         holder.popupMenu.setOnClickListener(new View.OnClickListener() {
@@ -125,15 +101,34 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
                 popup.show();//showing popup menu
             }
         });
-    }
 
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo ni = cm.getActiveNetworkInfo();
-        if (ni == null) {
-            return false;
-        } else
-            return true;
+        long idPlace=list.get(position).getIdPlace();
+        MyStorage ms=new MyStorageSQLite(context);
+        Site site=ms.getSiteById(idPlace);
+        final double lat=site.getLat();
+
+        Date ultimoRiego=list.get(position).getPlantLastWatered();
+        Date ultimoAbono=list.get(position).getPlantDateOfAddition();
+
+        String proximoRiego=plantInfo.getNextWateringDateFormat(lat,ultimoRiego);
+        String proximoAbono=plantInfo.getNextSoilDateFormat(lat,ultimoAbono);
+
+        holder.textFechaRiego.setText(proximoRiego);
+        holder.textFechaAbono.setText(proximoAbono);
+
+
+
+        holder.botonRiego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date d=plantInfo.getNextWateringDate(lat);
+                objIncome.setPlantLastWatered(d);
+                MyStorage ms=new MyStorageSQLite(context);
+                ms.updateLastWatered(objIncome);
+                String s=plantInfo.getNextWateringDateFormat(lat,d);
+                holder.textFechaRiego.setText(s);
+            }
+        });
     }
 
     @Override
@@ -147,12 +142,20 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
         public ImageView userListPlantImage;
         public ImageButton popupMenu;
 
+        public TextView textFechaRiego;
+        public TextView textFechaAbono;
+        public Button botonRiego;
+
         ViewHolder(View itemView) {
             super(itemView);
             userListPlantName = (TextView) itemView.findViewById(R.id.list_plant_name);
             userListPlantInfo = (TextView) itemView.findViewById(R.id.list_plant_text);
             userListPlantImage = (ImageView) itemView.findViewById(R.id.list_plant_image);
             popupMenu = (ImageButton )itemView.findViewById(R.id.plant_added_popup_button);
+
+            textFechaRiego=(TextView) itemView.findViewById(R.id.fecha_riego);
+            textFechaAbono=(TextView) itemView.findViewById(R.id.fecha_abono);
+            botonRiego=(Button) itemView.findViewById(R.id.boton_riego);
         }
     }
 

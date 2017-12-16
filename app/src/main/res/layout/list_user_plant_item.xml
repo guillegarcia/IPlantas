@@ -31,26 +31,33 @@
                 android:layout_height="160dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_plant_one"/>
-            <View
+           <!-- <View
                 android:background="@android:color/white"
                 android:alpha="0.5"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_plant_one"/>
-            <TextView
-                android:id="@+id/list_plant_name"
+            -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:lines="2"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                tools:text="Geranio"
-                android:textSize="15sp"
-                android:text="@string/plant_name" />
+                android:layout_gravity="bottom"
+                android:background="#80111111">
+                <TextView
+                    android:id="@+id/list_plant_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:lines="2"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    tools:text="Geranio"
+                    android:textSize="15sp"
+                    android:text="@string/plant_name" />
+            </LinearLayout>
         </FrameLayout>
 
         <LinearLayout android:layout_height="match_parent"
