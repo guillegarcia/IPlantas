@@ -287,8 +287,8 @@ public class MyStorageSQLite extends SQLiteOpenHelper implements MyStorage {
         long idPlace = plant.getIdPlace();
         long idPlant = plant.getIdPlant();
 
-        db.execSQL("DELETE FROM myplants WHERE plantPlace = '" + idPlace
-                + "' AND plantName = '" + idPlant + "'"
+        db.execSQL("DELETE FROM myplants WHERE idPlace = '" + idPlace
+                + "' AND idPlant = '" + idPlant + "'"
         );
         db.close();
     }

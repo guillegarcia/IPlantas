@@ -1,5 +1,6 @@
 package com.iplantas.iplantas.adapter;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.iplantas.iplantas.R;
+import com.iplantas.iplantas.activity.ListUserPlantActivity;
 import com.iplantas.iplantas.model.Plant;
 import com.iplantas.iplantas.model.PlantInfo;
 import com.iplantas.iplantas.model.Site;
@@ -50,6 +52,7 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
     private static ImageLoader imageLoader;
     private Context context;
     List<PlantInfo> plantList;
+    MyStorage ms;
 
     public ListUserPlantAdapter(Context context, List<Plant> list) {
         this.list = list;
@@ -76,35 +79,14 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
         holder.userListPlantName.setText(principalTextPlant);
         String infoPlant = objIncome.getPlantLastWatered().toString();
         holder.userListPlantInfo.setText(infoPlant);
-
+        ms=new MyStorageSQLite(context);
         MyStoragePlantsPlain myStoragePlantsPlain = new MyStoragePlantsPlain(context);
         final PlantInfo plantInfo = myStoragePlantsPlain.getPlantInfoById(objIncome.getIdSpecies());
         int idSpecie = plantInfo.getImgResourceId(context);
         holder.userListPlantImage.setImageResource(idSpecie);
-        holder.popupMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(holder.itemView.getContext(), holder.popupMenu);
-                popup.getMenuInflater().inflate(R.menu.menu_list_plants, popup.getMenu());
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int id = item.getItemId();
-                        if (id == R.id.menu_edit_plant) {
-                            Toast.makeText(holder.itemView.getContext(),"Planta editada",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(holder.itemView.getContext(),"Planta borrada",Toast.LENGTH_SHORT).show();
-                        }
-                        return true;
-                    }
-                });
-
-                popup.show();//showing popup menu
-            }
-        });
 
         long idPlace=list.get(position).getIdPlace();
-        MyStorage ms=new MyStorageSQLite(context);
-        Site site=ms.getSiteById(idPlace);
+        final Site site=ms.getSiteById(idPlace);
         final double lat=site.getLat();
 
         Date ultimoRiego=list.get(position).getPlantLastWatered();
@@ -127,6 +109,36 @@ public class ListUserPlantAdapter extends RecyclerView.Adapter<ListUserPlantAdap
                 ms.updateLastWatered(objIncome);
                 String s=plantInfo.getNextWateringDateFormat(lat,d);
                 holder.textFechaRiego.setText(s);
+            }
+        });
+
+        holder.popupMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(holder.itemView.getContext(), holder.popupMenu);
+                popup.getMenuInflater().inflate(R.menu.menu_list_plants, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        int id = item.getItemId();
+                        if (id == R.id.menu_edit_plant) {
+                            Toast.makeText(holder.itemView.getContext(),"Planta editada",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(holder.itemView.getContext(),"Planta borrada",Toast.LENGTH_SHORT).show();
+                            ms.deletePlant(objIncome);
+
+                            Intent intent = new Intent(context, ListUserPlantActivity.class);
+                            intent.putExtra("idSite", site.getId());
+                            intent.putExtra("nameSite", site.getName());
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            context.startActivity(intent);
+
+                            notifyDataSetChanged();
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
             }
         });
     }
