@@ -44,4 +44,6 @@
     <string name="text_email">Introduce el texto</string>
     <string name="send_email">Enviar Email</string>
     <string name="search">Buscar</string>
+    <string name="warning_title">AVISO</string>
+    <string name="warning_body">"Esta aplicación es un proyecto de máster y no es 100% funcional"</string>
 </resources>

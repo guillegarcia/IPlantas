@@ -1,10 +1,12 @@
 package com.iplantas.iplantas.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -131,6 +133,15 @@ public class SitesActivity extends AppCompatActivity {
                     }
                 })
         );*/
+
+        new AlertDialog.Builder(SitesActivity.this)
+                .setTitle(getResources().getString(R.string.warning_title))
+                .setMessage(getResources().getString(R.string.warning_body))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).show();
 
         MobileAds.initialize(this,ID_APP);
 
