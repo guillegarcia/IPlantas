@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/plantas_background_almost_white_"
+            android:background="@drawable/plantas_background_white_two"
             android:gravity="center_horizontal">
 
             <android.support.design.widget.AppBarLayout
