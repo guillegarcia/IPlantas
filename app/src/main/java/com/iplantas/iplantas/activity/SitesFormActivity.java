@@ -173,40 +173,24 @@ public class SitesFormActivity extends AppCompatActivity implements OnMapReadyCa
     public void onMapReady(GoogleMap googleMap) {
         this.locationMap = googleMap;
 
-        //Initial position
+        int zoom=2;
         LatLng startPositionLatLng = new LatLng(40.4167278, -3.7033387000000175);
         if(site.getLng() != Site.EMPTY_LNG && site.getLat() != Site.EMPTY_LAT){
             startPositionLatLng = new LatLng(site.getLat(),site.getLng());
             locationMap.addMarker(new MarkerOptions().position(startPositionLatLng));
+            zoom=15;
         }
 
         locationMap.moveCamera(CameraUpdateFactory.newLatLng(startPositionLatLng));
-        locationMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-
-//
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        locationMap.setMyLocationEnabled(true);
+        locationMap.moveCamera(CameraUpdateFactory.zoomTo(zoom));
 
         //Click event
         locationMap.setOnMapClickListener(this);
-
 
     }
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Log.d(LOG_TAG,"LAT: "+latLng.latitude);
-        Log.d(LOG_TAG,"LNG: "+latLng.longitude);
-
         //Save selected position
         this.site.setLat(latLng.latitude);
         this.site.setLng(latLng.longitude);
